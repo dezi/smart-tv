@@ -2,6 +2,8 @@
 # Install XBMC build dependencies.
 # By dezi
 
+sudo apt-get update
+
 sudo apt-get install \
 	libvdpau-dev ccache autopoint libltdl-dev git-core build-essential \
 	gawk pmount libtool nasm yasm automake cmake gperf zip unzip bison \
