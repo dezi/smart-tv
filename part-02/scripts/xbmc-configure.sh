@@ -13,9 +13,6 @@ export CFLAGS="-march=native -mfloat-abi=hard \
         --param=ssp-buffer-size=4 \
         -D_FORTIFY_SOURCE=2"
 
-export CPPFLAGS
-export CFLAGS
-
 ./configure \
   --build=armv7a-hardfloat-linux-gnueabi \
   --host=armv7a-hardfloat-linux-gnueabi \
