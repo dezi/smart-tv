@@ -2,9 +2,9 @@
 # XBMC configure script
 # By dezi
 
-CPPFLAGS="-I/usr/include/samba-4.0"
+export CPPFLAGS="-I/usr/include/samba-4.0"
 
-CFLAGS="-march=native -mfloat-abi=hard \
+export CFLAGS="-march=native -mfloat-abi=hard \
         -mfpu=neon -ftree-vectorize \
         -mvectorize-with-neon-quad \
         -ffast-math -mcpu=cortex-a9 \
