@@ -1,0 +1,784 @@
+diff --git a/arch/arm/configs/odroidu2_defconfig b/arch/arm/configs/odroidu2_defconfig
+index 6fae380..bd7b168 100644
+--- a/arch/arm/configs/odroidu2_defconfig
++++ b/arch/arm/configs/odroidu2_defconfig
+@@ -788,7 +788,7 @@ CONFIG_NETFILTER_XT_TARGET_NFQUEUE=m
+ CONFIG_NETFILTER_XT_TARGET_RATEEST=m
+ CONFIG_NETFILTER_XT_TARGET_REDIRECT=m
+ CONFIG_NETFILTER_XT_TARGET_TEE=m
+-CONFIG_NETFILTER_XT_TARGET_TPROXY=m
++# CONFIG_NETFILTER_XT_TARGET_TPROXY is not set
+ CONFIG_NETFILTER_XT_TARGET_TRACE=m
+ CONFIG_NETFILTER_XT_TARGET_TCPMSS=m
+ CONFIG_NETFILTER_XT_TARGET_TCPOPTSTRIP=m
+@@ -829,7 +829,7 @@ CONFIG_NETFILTER_XT_MATCH_RATEEST=m
+ CONFIG_NETFILTER_XT_MATCH_REALM=m
+ CONFIG_NETFILTER_XT_MATCH_RECENT=m
+ CONFIG_NETFILTER_XT_MATCH_SCTP=m
+-CONFIG_NETFILTER_XT_MATCH_SOCKET=m
++# CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
+ CONFIG_NETFILTER_XT_MATCH_STATE=m
+ CONFIG_NETFILTER_XT_MATCH_STATISTIC=m
+ CONFIG_NETFILTER_XT_MATCH_STRING=m
+@@ -1798,7 +1798,7 @@ CONFIG_I2C_STUB=m
+ # CONFIG_I2C_DEBUG_ALGO is not set
+ # CONFIG_I2C_DEBUG_BUS is not set
+ CONFIG_SPI=y
+-# CONFIG_SPI_DEBUG is not set
++CONFIG_SPI_DEBUG=y
+ CONFIG_SPI_MASTER=y
+ 
+ #
+@@ -1819,7 +1819,7 @@ CONFIG_SPI_S3C64XX=y
+ #
+ # SPI Protocol Masters
+ #
+-# CONFIG_SPI_SPIDEV is not set
++CONFIG_SPI_SPIDEV=y
+ # CONFIG_SPI_TLE62X0 is not set
+ # CONFIG_HSI is not set
+ 
+@@ -2823,7 +2823,6 @@ CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
+ # CONFIG_USB_SUSPEND is not set
+ # CONFIG_USB_OTG_WHITELIST is not set
+ # CONFIG_USB_OTG_BLACKLIST_HUB is not set
+-# CONFIG_USB_DWC3 is not set
+ CONFIG_USB_MON=m
+ CONFIG_USB_WUSB_CBAF=m
+ # CONFIG_USB_WUSB_CBAF_DEBUG is not set
+@@ -2853,9 +2852,7 @@ CONFIG_USB_OHCI_LITTLE_ENDIAN=y
+ # CONFIG_USB_SL811_HCD is not set
+ # CONFIG_USB_R8A66597_HCD is not set
+ # CONFIG_USB_HCD_SSB is not set
+-# CONFIG_USB_MUSB_HDRC is not set
+ # CONFIG_USB_CHIPIDEA is not set
+-# CONFIG_USB_RENESAS_USBHS is not set
+ 
+ #
+ # USB Device Class drivers
+@@ -2999,49 +2996,7 @@ CONFIG_USB_HSIC_USB3503=y
+ #
+ # CONFIG_USB_ISP1301 is not set
+ # CONFIG_USB_RCAR_PHY is not set
+-CONFIG_USB_GADGET=y
+-# CONFIG_USB_GADGET_DEBUG is not set
+-# CONFIG_USB_GADGET_DEBUG_FILES is not set
+-# CONFIG_USB_GADGET_DEBUG_FS is not set
+-CONFIG_USB_GADGET_VBUS_DRAW=500
+-CONFIG_USB_GADGET_STORAGE_NUM_BUFFERS=2
+-
+-#
+-# USB Peripheral Controller
+-#
+-# CONFIG_USB_FUSB300 is not set
+-# CONFIG_USB_R8A66597 is not set
+-CONFIG_USB_S3C_HSOTG=y
+-# CONFIG_USB_MV_UDC is not set
+-# CONFIG_USB_M66592 is not set
+-# CONFIG_USB_NET2272 is not set
+-# CONFIG_USB_DUMMY_HCD is not set
+-CONFIG_USB_LIBCOMPOSITE=m
+-CONFIG_USB_ZERO=m
+-CONFIG_USB_AUDIO=m
+-CONFIG_GADGET_UAC1=y
+-CONFIG_USB_ETH=m
+-CONFIG_USB_ETH_RNDIS=y
+-CONFIG_USB_ETH_EEM=y
+-CONFIG_USB_G_NCM=m
+-CONFIG_USB_GADGETFS=m
+-CONFIG_USB_FUNCTIONFS=m
+-CONFIG_USB_FUNCTIONFS_ETH=y
+-CONFIG_USB_FUNCTIONFS_RNDIS=y
+-CONFIG_USB_FUNCTIONFS_GENERIC=y
+-CONFIG_USB_MASS_STORAGE=m
+-CONFIG_USB_G_SERIAL=m
+-CONFIG_USB_MIDI_GADGET=m
+-CONFIG_USB_G_PRINTER=m
+-CONFIG_USB_CDC_COMPOSITE=m
+-CONFIG_USB_G_NOKIA=m
+-CONFIG_USB_G_ACM_MS=m
+-CONFIG_USB_G_MULTI=m
+-CONFIG_USB_G_MULTI_RNDIS=y
+-# CONFIG_USB_G_MULTI_CDC is not set
+-CONFIG_USB_G_HID=m
+-# CONFIG_USB_G_DBGP is not set
+-# CONFIG_USB_G_WEBCAM is not set
++# CONFIG_USB_GADGET is not set
+ 
+ #
+ # OTG and related infrastructure
+@@ -3232,10 +3187,7 @@ CONFIG_UIO=y
+ # Microsoft Hyper-V guest support
+ #
+ CONFIG_STAGING=y
+-CONFIG_USBIP_CORE=m
+-CONFIG_USBIP_VHCI_HCD=m
+-CONFIG_USBIP_HOST=m
+-CONFIG_USBIP_DEBUG=y
++# CONFIG_USBIP_CORE is not set
+ # CONFIG_W35UND is not set
+ # CONFIG_PRISM2_USB is not set
+ # CONFIG_ECHO is not set
+@@ -3551,7 +3503,7 @@ CONFIG_INOTIFY_USER=y
+ # CONFIG_FANOTIFY is not set
+ # CONFIG_QUOTA is not set
+ # CONFIG_QUOTACTL is not set
+-CONFIG_AUTOFS4_FS=m
++# CONFIG_AUTOFS4_FS is not set
+ CONFIG_FUSE_FS=m
+ # CONFIG_CUSE is not set
+ # CONFIG_OVERLAYFS_FS is not set
+diff --git a/arch/arm/configs/odroidx2_defconfig b/arch/arm/configs/odroidx2_defconfig
+index 02190c5..e18767e 100644
+--- a/arch/arm/configs/odroidx2_defconfig
++++ b/arch/arm/configs/odroidx2_defconfig
+@@ -3502,7 +3502,7 @@ CONFIG_INOTIFY_USER=y
+ # CONFIG_FANOTIFY is not set
+ # CONFIG_QUOTA is not set
+ # CONFIG_QUOTACTL is not set
+-CONFIG_AUTOFS4_FS=m
++# CONFIG_AUTOFS4_FS is not set
+ CONFIG_FUSE_FS=m
+ # CONFIG_CUSE is not set
+ # CONFIG_OVERLAYFS_FS is not set
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192c/dm_common.c b/drivers/net/wireless/rtlwifi/rtl8192c/dm_common.c
+index 1cdf5a2..52ea50f 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192c/dm_common.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192c/dm_common.c
+@@ -158,6 +158,42 @@ static const u8 cckswing_table_ch14[CCK_TABLE_SIZE][8] = {
+ 	{0x09, 0x08, 0x07, 0x04, 0x00, 0x00, 0x00, 0x00}
+ };
+ 
++static u32 power_index_reg[6] = {0xc90, 0xc91, 0xc92, 0xc98, 0xc99, 0xc9a};
++
++void dm_restorepowerindex(struct ieee80211_hw *hw)
++{
++        struct rtl_priv *rtlpriv = rtl_priv(hw);
++        u8      index;
++
++        for (index = 0; index < 6; index++)
++                rtl_write_byte(rtlpriv, power_index_reg[index],
++                               rtlpriv->dm.powerindex_backup[index]);
++}
++EXPORT_SYMBOL_GPL(dm_restorepowerindex);
++
++void dm_writepowerindex(struct ieee80211_hw *hw, u8 value)
++{
++        struct rtl_priv *rtlpriv = rtl_priv(hw);
++        u8 index;
++
++        for (index = 0; index < 6; index++)
++                rtl_write_byte(rtlpriv, power_index_reg[index], value);
++}
++EXPORT_SYMBOL_GPL(dm_writepowerindex);
++
++void dm_savepowerindex(struct ieee80211_hw *hw)
++{
++        struct rtl_priv *rtlpriv = rtl_priv(hw);
++        u8 index;
++        u8 tmp;
++
++        for (index = 0; index < 6; index++) {
++                tmp = rtl_read_byte(rtlpriv, power_index_reg[index]);
++                rtlpriv->dm.powerindex_backup[index] = tmp;
++        }
++}
++EXPORT_SYMBOL_GPL(dm_savepowerindex);
++
+ static void rtl92c_dm_diginit(struct ieee80211_hw *hw)
+ {
+ 	struct rtl_priv *rtlpriv = rtl_priv(hw);
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/dm.c b/drivers/net/wireless/rtlwifi/rtl8192cu/dm.c
+index 16a0b9e..fd5137d 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/dm.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/dm.c
+@@ -101,6 +101,15 @@ void rtl92cu_dm_dynamic_txpower(struct ieee80211_hw *hw)
+ 			 "PHY_SetTxPowerLevel8192S() Channel = %d\n",
+ 			 rtlphy->current_channel);
+ 		rtl92c_phy_set_txpower_level(hw, rtlphy->current_channel);
++                if (rtlpriv->dm.dynamic_txhighpower_lvl ==
++                    TXHIGHPWRLEVEL_NORMAL)
++                        dm_restorepowerindex(hw);
++                else if (rtlpriv->dm.dynamic_txhighpower_lvl ==
++                         TXHIGHPWRLEVEL_LEVEL1)
++                        dm_writepowerindex(hw, 0x14);
++                else if (rtlpriv->dm.dynamic_txhighpower_lvl ==
++                         TXHIGHPWRLEVEL_LEVEL2)
++                        dm_writepowerindex(hw, 0x10);
+ 	}
+ 
+ 	rtlpriv->dm.last_dtp_lvl = rtlpriv->dm.dynamic_txhighpower_lvl;
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/dm.h b/drivers/net/wireless/rtlwifi/rtl8192cu/dm.h
+index d947e7d..fafa6ba 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/dm.h
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/dm.h
+@@ -30,3 +30,6 @@
+ #include "../rtl8192ce/dm.h"
+ 
+ void rtl92cu_dm_dynamic_txpower(struct ieee80211_hw *hw);
++void dm_savepowerindex(struct ieee80211_hw *hw);
++void dm_writepowerindex(struct ieee80211_hw *hw, u8 value);
++void dm_restorepowerindex(struct ieee80211_hw *hw);
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/hw.c b/drivers/net/wireless/rtlwifi/rtl8192cu/hw.c
+index c08d0f4..2a324cf 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/hw.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/hw.c
+@@ -1022,7 +1022,7 @@ int rtl92cu_hw_init(struct ieee80211_hw *hw)
+ 	if (ppsc->rfpwr_state == ERFON) {
+ 		rtl92c_phy_set_rfpath_switch(hw, 1);
+ 		if (iqk_initialized) {
+-			rtl92c_phy_iq_calibrate(hw, false);
++			rtl92c_phy_iq_calibrate(hw, true);
+ 		} else {
+ 			rtl92c_phy_iq_calibrate(hw, false);
+ 			iqk_initialized = true;
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/mac.c b/drivers/net/wireless/rtlwifi/rtl8192cu/mac.c
+index aa5528c..5e08d9e 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/mac.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/mac.c
+@@ -32,6 +32,7 @@
+ #include "../usb.h"
+ #include "../ps.h"
+ #include "../cam.h"
++#include "../stats.h"
+ #include "reg.h"
+ #include "def.h"
+ #include "phy.h"
+@@ -289,14 +290,30 @@ void rtl92c_set_key(struct ieee80211_hw *hw, u32 key_index,
+ 				macaddr = cam_const_broad;
+ 				entry_id = key_index;
+ 			} else {
++				if (mac->opmode == NL80211_IFTYPE_AP ||
++                                   mac->opmode == NL80211_IFTYPE_MESH_POINT) {
++                                       entry_id = rtl_cam_get_free_entry(hw,
++                                                                p_macaddr);
++                                       if (entry_id >=  TOTAL_CAM_ENTRY) {
++                                               RT_TRACE(rtlpriv, COMP_SEC,
++                                                        DBG_EMERG,
++                                                        "Can not find free hw security cam entry\n");
++                                               return;
++                                       }
++                               } else {
++                                       entry_id = CAM_PAIRWISE_KEY_POSITION;
++                               }
++
+ 				key_index = PAIRWISE_KEYIDX;
+-				entry_id = CAM_PAIRWISE_KEY_POSITION;
+ 				is_pairwise = true;
+ 			}
+ 		}
+ 		if (rtlpriv->sec.key_len[key_index] == 0) {
+ 			RT_TRACE(rtlpriv, COMP_SEC, DBG_DMESG,
+ 				 "delete one entry\n");
++                       if (mac->opmode == NL80211_IFTYPE_AP ||
++                           mac->opmode == NL80211_IFTYPE_MESH_POINT)
++                               rtl_cam_del_entry(hw, p_macaddr);
+ 			rtl_cam_delete_one_entry(hw, p_macaddr, entry_id);
+ 		} else {
+ 			RT_TRACE(rtlpriv, COMP_SEC, DBG_LOUD,
+@@ -722,16 +739,6 @@ static u8 _rtl92c_evm_db_to_percentage(char value)
+ 	return ret_val;
+ }
+ 
+-static long _rtl92c_translate_todbm(struct ieee80211_hw *hw,
+-				     u8 signal_strength_index)
+-{
+-	long signal_power;
+-
+-	signal_power = (long)((signal_strength_index + 1) >> 1);
+-	signal_power -= 95;
+-	return signal_power;
+-}
+-
+ static long _rtl92c_signal_scale_mapping(struct ieee80211_hw *hw,
+ 		long currsig)
+ {
+@@ -897,180 +904,6 @@ static void _rtl92c_query_rxphystatus(struct ieee80211_hw *hw,
+ 			  (hw, total_rssi /= rf_rx_num));
+ }
+ 
+-static void _rtl92c_process_ui_rssi(struct ieee80211_hw *hw,
+-		struct rtl_stats *pstats)
+-{
+-	struct rtl_priv *rtlpriv = rtl_priv(hw);
+-	struct rtl_phy *rtlphy = &(rtlpriv->phy);
+-	u8 rfpath;
+-	u32 last_rssi, tmpval;
+-
+-	if (pstats->packet_toself || pstats->packet_beacon) {
+-		rtlpriv->stats.rssi_calculate_cnt++;
+-		if (rtlpriv->stats.ui_rssi.total_num++ >=
+-		    PHY_RSSI_SLID_WIN_MAX) {
+-			rtlpriv->stats.ui_rssi.total_num =
+-			    PHY_RSSI_SLID_WIN_MAX;
+-			last_rssi =
+-			    rtlpriv->stats.ui_rssi.elements[rtlpriv->
+-							   stats.ui_rssi.index];
+-			rtlpriv->stats.ui_rssi.total_val -= last_rssi;
+-		}
+-		rtlpriv->stats.ui_rssi.total_val += pstats->signalstrength;
+-		rtlpriv->stats.ui_rssi.elements[rtlpriv->stats.ui_rssi.
+-					index++] = pstats->signalstrength;
+-		if (rtlpriv->stats.ui_rssi.index >= PHY_RSSI_SLID_WIN_MAX)
+-			rtlpriv->stats.ui_rssi.index = 0;
+-		tmpval = rtlpriv->stats.ui_rssi.total_val /
+-		    rtlpriv->stats.ui_rssi.total_num;
+-		rtlpriv->stats.signal_strength =
+-		    _rtl92c_translate_todbm(hw, (u8) tmpval);
+-		pstats->rssi = rtlpriv->stats.signal_strength;
+-	}
+-	if (!pstats->is_cck && pstats->packet_toself) {
+-		for (rfpath = RF90_PATH_A; rfpath < rtlphy->num_total_rfpath;
+-		     rfpath++) {
+-			if (!rtl8192_phy_check_is_legal_rfpath(hw, rfpath))
+-				continue;
+-			if (rtlpriv->stats.rx_rssi_percentage[rfpath] == 0) {
+-				rtlpriv->stats.rx_rssi_percentage[rfpath] =
+-				    pstats->rx_mimo_signalstrength[rfpath];
+-			}
+-			if (pstats->rx_mimo_signalstrength[rfpath] >
+-			    rtlpriv->stats.rx_rssi_percentage[rfpath]) {
+-				rtlpriv->stats.rx_rssi_percentage[rfpath] =
+-				    ((rtlpriv->stats.
+-				      rx_rssi_percentage[rfpath] *
+-				      (RX_SMOOTH_FACTOR - 1)) +
+-				     (pstats->rx_mimo_signalstrength[rfpath])) /
+-				    (RX_SMOOTH_FACTOR);
+-
+-				rtlpriv->stats.rx_rssi_percentage[rfpath] =
+-				    rtlpriv->stats.rx_rssi_percentage[rfpath] +
+-				    1;
+-			} else {
+-				rtlpriv->stats.rx_rssi_percentage[rfpath] =
+-				    ((rtlpriv->stats.
+-				      rx_rssi_percentage[rfpath] *
+-				      (RX_SMOOTH_FACTOR - 1)) +
+-				     (pstats->rx_mimo_signalstrength[rfpath])) /
+-				    (RX_SMOOTH_FACTOR);
+-			}
+-		}
+-	}
+-}
+-
+-static void _rtl92c_update_rxsignalstatistics(struct ieee80211_hw *hw,
+-					       struct rtl_stats *pstats)
+-{
+-	struct rtl_priv *rtlpriv = rtl_priv(hw);
+-	int weighting = 0;
+-
+-	if (rtlpriv->stats.recv_signal_power == 0)
+-		rtlpriv->stats.recv_signal_power = pstats->recvsignalpower;
+-	if (pstats->recvsignalpower > rtlpriv->stats.recv_signal_power)
+-		weighting = 5;
+-	else if (pstats->recvsignalpower < rtlpriv->stats.recv_signal_power)
+-		weighting = (-5);
+-	rtlpriv->stats.recv_signal_power =
+-	    (rtlpriv->stats.recv_signal_power * 5 +
+-	     pstats->recvsignalpower + weighting) / 6;
+-}
+-
+-static void _rtl92c_process_pwdb(struct ieee80211_hw *hw,
+-		struct rtl_stats *pstats)
+-{
+-	struct rtl_priv *rtlpriv = rtl_priv(hw);
+-	struct rtl_mac *mac = rtl_mac(rtl_priv(hw));
+-	long undec_sm_pwdb = 0;
+-
+-	if (mac->opmode == NL80211_IFTYPE_ADHOC) {
+-		return;
+-	} else {
+-		undec_sm_pwdb = rtlpriv->dm.undec_sm_pwdb;
+-	}
+-	if (pstats->packet_toself || pstats->packet_beacon) {
+-		if (undec_sm_pwdb < 0)
+-			undec_sm_pwdb = pstats->rx_pwdb_all;
+-		if (pstats->rx_pwdb_all > (u32) undec_sm_pwdb) {
+-			undec_sm_pwdb = (((undec_sm_pwdb) *
+-			      (RX_SMOOTH_FACTOR - 1)) +
+-			     (pstats->rx_pwdb_all)) / (RX_SMOOTH_FACTOR);
+-			undec_sm_pwdb += 1;
+-		} else {
+-			undec_sm_pwdb = (((undec_sm_pwdb) *
+-			      (RX_SMOOTH_FACTOR - 1)) +
+-			     (pstats->rx_pwdb_all)) / (RX_SMOOTH_FACTOR);
+-		}
+-		rtlpriv->dm.undec_sm_pwdb = undec_sm_pwdb;
+-		_rtl92c_update_rxsignalstatistics(hw, pstats);
+-	}
+-}
+-
+-static void _rtl92c_process_LINK_Q(struct ieee80211_hw *hw,
+-					     struct rtl_stats *pstats)
+-{
+-	struct rtl_priv *rtlpriv = rtl_priv(hw);
+-	u32 last_evm = 0, n_stream, tmpval;
+-
+-	if (pstats->signalquality != 0) {
+-		if (pstats->packet_toself || pstats->packet_beacon) {
+-			if (rtlpriv->stats.LINK_Q.total_num++ >=
+-			    PHY_LINKQUALITY_SLID_WIN_MAX) {
+-				rtlpriv->stats.LINK_Q.total_num =
+-				    PHY_LINKQUALITY_SLID_WIN_MAX;
+-				last_evm =
+-				    rtlpriv->stats.LINK_Q.elements
+-				    [rtlpriv->stats.LINK_Q.index];
+-				rtlpriv->stats.LINK_Q.total_val -=
+-				    last_evm;
+-			}
+-			rtlpriv->stats.LINK_Q.total_val +=
+-			    pstats->signalquality;
+-			rtlpriv->stats.LINK_Q.elements
+-			   [rtlpriv->stats.LINK_Q.index++] =
+-			    pstats->signalquality;
+-			if (rtlpriv->stats.LINK_Q.index >=
+-			    PHY_LINKQUALITY_SLID_WIN_MAX)
+-				rtlpriv->stats.LINK_Q.index = 0;
+-			tmpval = rtlpriv->stats.LINK_Q.total_val /
+-			    rtlpriv->stats.LINK_Q.total_num;
+-			rtlpriv->stats.signal_quality = tmpval;
+-			rtlpriv->stats.last_sigstrength_inpercent = tmpval;
+-			for (n_stream = 0; n_stream < 2;
+-			     n_stream++) {
+-				if (pstats->RX_SIGQ[n_stream] != -1) {
+-					if (!rtlpriv->stats.RX_EVM[n_stream]) {
+-						rtlpriv->stats.RX_EVM[n_stream]
+-						 = pstats->RX_SIGQ[n_stream];
+-					}
+-					rtlpriv->stats.RX_EVM[n_stream] =
+-					    ((rtlpriv->stats.RX_EVM
+-					    [n_stream] *
+-					    (RX_SMOOTH_FACTOR - 1)) +
+-					    (pstats->RX_SIGQ
+-					    [n_stream] * 1)) /
+-					    (RX_SMOOTH_FACTOR);
+-				}
+-			}
+-		}
+-	} else {
+-		;
+-	}
+-}
+-
+-static void _rtl92c_process_phyinfo(struct ieee80211_hw *hw,
+-				     u8 *buffer,
+-				     struct rtl_stats *pcurrent_stats)
+-{
+-	if (!pcurrent_stats->packet_matchbssid &&
+-	    !pcurrent_stats->packet_beacon)
+-		return;
+-	_rtl92c_process_ui_rssi(hw, pcurrent_stats);
+-	_rtl92c_process_pwdb(hw, pcurrent_stats);
+-	_rtl92c_process_LINK_Q(hw, pcurrent_stats);
+-}
+-
+ void rtl92c_translate_rx_signal_stuff(struct ieee80211_hw *hw,
+ 					       struct sk_buff *skb,
+ 					       struct rtl_stats *pstats,
+@@ -1084,7 +917,7 @@ void rtl92c_translate_rx_signal_stuff(struct ieee80211_hw *hw,
+ 	u8 *praddr;
+ 	__le16 fc;
+ 	u16 type, cpu_fc;
+-	bool packet_matchbssid, packet_toself, packet_beacon;
++	bool packet_matchbssid, packet_toself, packet_beacon = false;
+ 
+ 	tmp_buf = skb->data + pstats->rx_drvinfo_size + pstats->rx_bufshift;
+ 	hdr = (struct ieee80211_hdr *)tmp_buf;
+@@ -1107,5 +940,5 @@ void rtl92c_translate_rx_signal_stuff(struct ieee80211_hw *hw,
+ 	_rtl92c_query_rxphystatus(hw, pstats, pdesc, p_drvinfo,
+ 				   packet_matchbssid, packet_toself,
+ 				   packet_beacon);
+-	_rtl92c_process_phyinfo(hw, tmp_buf, pstats);
++	rtl_process_phyinfo(hw, tmp_buf, pstats);
+ }
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/phy.c b/drivers/net/wireless/rtlwifi/rtl8192cu/phy.c
+index 34e5630..0c09240 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/phy.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/phy.c
+@@ -120,6 +120,7 @@ bool rtl92cu_phy_bb_config(struct ieee80211_hw *hw)
+ 	struct rtl_priv *rtlpriv = rtl_priv(hw);
+ 	struct rtl_hal *rtlhal = rtl_hal(rtl_priv(hw));
+ 	u16 regval;
++	u32 regval32;
+ 	u8 b_reg_hwparafile = 1;
+ 
+ 	_rtl92c_phy_init_bb_rf_register_definition(hw);
+@@ -135,8 +136,11 @@ bool rtl92cu_phy_bb_config(struct ieee80211_hw *hw)
+ 	} else if (IS_HARDWARE_TYPE_8192CU(rtlhal)) {
+ 		rtl_write_byte(rtlpriv, REG_SYS_FUNC_EN, FEN_USBA | FEN_USBD |
+ 			       FEN_BB_GLB_RSTn | FEN_BBRSTB);
+-		rtl_write_byte(rtlpriv, REG_LDOHCI12_CTRL, 0x0f);
+ 	}
++	regval32 = rtl_read_dword(rtlpriv, 0x87c);
++	rtl_write_dword(rtlpriv, 0x87c, regval32 & (~BIT(31)));
++	if (IS_HARDWARE_TYPE_8192CU(rtlhal))
++		rtl_write_byte(rtlpriv, REG_LDOHCI12_CTRL, 0x0f);
+ 	rtl_write_byte(rtlpriv, REG_AFE_XTAL_CTRL + 1, 0x80);
+ 	if (b_reg_hwparafile == 1)
+ 		rtstatus = _rtl92c_phy_bb8192c_config_parafile(hw);
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/rf.c b/drivers/net/wireless/rtlwifi/rtl8192cu/rf.c
+index 953f1a0..b878d56 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/rf.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/rf.c
+@@ -85,17 +85,15 @@ void rtl92cu_phy_rf6052_set_cck_txpower(struct ieee80211_hw *hw,
+ 	if (mac->act_scanning) {
+ 		tx_agc[RF90_PATH_A] = 0x3f3f3f3f;
+ 		tx_agc[RF90_PATH_B] = 0x3f3f3f3f;
+-		if (turbo_scanoff) {
+-			for (idx1 = RF90_PATH_A; idx1 <= RF90_PATH_B; idx1++) {
+-				tx_agc[idx1] = ppowerlevel[idx1] |
+-				    (ppowerlevel[idx1] << 8) |
+-				    (ppowerlevel[idx1] << 16) |
+-				    (ppowerlevel[idx1] << 24);
+-				if (rtlhal->interface == INTF_USB) {
+-					if (tx_agc[idx1] > 0x20 &&
+-					    rtlefuse->external_pa)
+-						tx_agc[idx1] = 0x20;
+-				}
++		for (idx1 = RF90_PATH_A; idx1 <= RF90_PATH_B; idx1++) {
++			tx_agc[idx1] = ppowerlevel[idx1] |
++			    (ppowerlevel[idx1] << 8) |
++			    (ppowerlevel[idx1] << 16) |
++			    (ppowerlevel[idx1] << 24);
++			if (rtlhal->interface == INTF_USB) {
++				if (tx_agc[idx1] > 0x20 &&
++				    rtlefuse->external_pa)
++					tx_agc[idx1] = 0x20;
+ 			}
+ 		}
+ 	} else {
+@@ -104,10 +102,10 @@ void rtl92cu_phy_rf6052_set_cck_txpower(struct ieee80211_hw *hw,
+ 			tx_agc[RF90_PATH_A] = 0x10101010;
+ 			tx_agc[RF90_PATH_B] = 0x10101010;
+ 		} else if (rtlpriv->dm.dynamic_txhighpower_lvl ==
+-			   TXHIGHPWRLEVEL_LEVEL1) {
++			   TXHIGHPWRLEVEL_LEVEL2) {
+ 			tx_agc[RF90_PATH_A] = 0x00000000;
+ 			tx_agc[RF90_PATH_B] = 0x00000000;
+-		} else{
++		} else {
+ 			for (idx1 = RF90_PATH_A; idx1 <= RF90_PATH_B; idx1++) {
+ 				tx_agc[idx1] = ppowerlevel[idx1] |
+ 				    (ppowerlevel[idx1] << 8) |
+@@ -373,7 +371,12 @@ static void _rtl92c_write_ofdm_power_reg(struct ieee80211_hw *hw,
+ 			    regoffset == RTXAGC_B_MCS07_MCS04)
+ 				regoffset = 0xc98;
+ 			for (i = 0; i < 3; i++) {
+-				writeVal = (writeVal > 6) ? (writeVal - 6) : 0;
++				if (i != 2)
++					writeVal = (writeVal > 8) ?
++						   (writeVal - 8) : 0;
++				else
++					writeVal = (writeVal > 6) ?
++						   (writeVal - 6) : 0;
+ 				rtl_write_byte(rtlpriv, (u32)(regoffset + i),
+ 					      (u8)writeVal);
+ 			}
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/sw.c b/drivers/net/wireless/rtlwifi/rtl8192cu/sw.c
+index 5212ad2..1d2b00b 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/sw.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/sw.c
+@@ -49,6 +49,9 @@ MODULE_AUTHOR("Larry Finger	<Larry.Finger@lwfinger.net>");
+ MODULE_LICENSE("GPL");
+ MODULE_DESCRIPTION("Realtek 8192C/8188C 802.11n USB wireless");
+ MODULE_FIRMWARE("rtlwifi/rtl8192cufw.bin");
++MODULE_FIRMWARE("rtlwifi/rtl8192cufw_A.bin");
++MODULE_FIRMWARE("rtlwifi/rtl8192cufw_B.bin");
++MODULE_FIRMWARE("rtlwifi/rtl8192cufw_TMSC.bin");
+ 
+ static int rtl92cu_init_sw_vars(struct ieee80211_hw *hw)
+ {
+@@ -68,15 +71,22 @@ static int rtl92cu_init_sw_vars(struct ieee80211_hw *hw)
+ 			 "Can't alloc buffer for fw\n");
+ 		return 1;
+ 	}
+-
++	if (IS_VENDOR_UMC_A_CUT(rtlpriv->rtlhal.version) &&
++	    !IS_92C_SERIAL(rtlpriv->rtlhal.version)) {
++		rtlpriv->cfg->fw_name = "rtlwifi/rtl8192cufw_A.bin";
++	} else if (IS_81xxC_VENDOR_UMC_B_CUT(rtlpriv->rtlhal.version)) {
++		rtlpriv->cfg->fw_name = "rtlwifi/rtl8192cufw_B.bin";
++	} else {
++		rtlpriv->cfg->fw_name = "rtlwifi/rtl8192cufw_TMSC.bin";
++	}
++	/* provide name of alternative file */
++	/* rtlpriv->cfg->alt_fw_name = "rtlwifi/rtl8192cufw.bin"; */
+ 	pr_info("Loading firmware %s\n", rtlpriv->cfg->fw_name);
+ 	rtlpriv->max_fw_size = 0x4000;
+ 	err = request_firmware_nowait(THIS_MODULE, 1,
+ 				      rtlpriv->cfg->fw_name, rtlpriv->io.dev,
+ 				      GFP_KERNEL, hw, rtl_fw_cb);
+-
+-
+-	return 0;
++	return err;
+ }
+ 
+ static void rtl92cu_deinit_sw_vars(struct ieee80211_hw *hw)
+@@ -306,6 +316,7 @@ static struct usb_device_id rtl8192c_usb_ids[] = {
+ 	{RTL_USB_DEVICE(0x0bda, 0x5088, rtl92cu_hal_cfg)}, /*Thinkware-CC&C*/
+ 	{RTL_USB_DEVICE(0x0df6, 0x0052, rtl92cu_hal_cfg)}, /*Sitecom - Edimax*/
+ 	{RTL_USB_DEVICE(0x0df6, 0x005c, rtl92cu_hal_cfg)}, /*Sitecom - Edimax*/
++	{RTL_USB_DEVICE(0x0df6, 0x0077, rtl92cu_hal_cfg)}, /*Sitecom-WLA2100V2*/
+ 	{RTL_USB_DEVICE(0x0eb0, 0x9071, rtl92cu_hal_cfg)}, /*NO Brand - Etop*/
+ 	{RTL_USB_DEVICE(0x4856, 0x0091, rtl92cu_hal_cfg)}, /*NetweeN - Feixun*/
+ 	/* HP - Lite-On ,8188CUS Slim Combo */
+@@ -349,6 +360,7 @@ static struct usb_device_id rtl8192c_usb_ids[] = {
+ 	{RTL_USB_DEVICE(0x07aa, 0x0056, rtl92cu_hal_cfg)}, /*ATKK-Gemtek*/
+ 	{RTL_USB_DEVICE(0x07b8, 0x8178, rtl92cu_hal_cfg)}, /*Funai -Abocom*/
+ 	{RTL_USB_DEVICE(0x0846, 0x9021, rtl92cu_hal_cfg)}, /*Netgear-Sercomm*/
++	{RTL_USB_DEVICE(0x0846, 0xf001, rtl92cu_hal_cfg)}, /*On Netwrks N300MA*/
+ 	{RTL_USB_DEVICE(0x0b05, 0x17ab, rtl92cu_hal_cfg)}, /*ASUS-Edimax*/
+ 	{RTL_USB_DEVICE(0x0bda, 0x8186, rtl92cu_hal_cfg)}, /*Realtek 92CE-VAU*/
+ 	{RTL_USB_DEVICE(0x0df6, 0x0061, rtl92cu_hal_cfg)}, /*Sitecom-Edimax*/
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/table.c b/drivers/net/wireless/rtlwifi/rtl8192cu/table.c
+index 966be51..7903c15 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/table.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/table.c
+@@ -36,7 +36,7 @@ u32 RTL8192CUPHY_REG_2TARRAY[RTL8192CUPHY_REG_2TARRAY_LENGTH] = {
+ 	0x804, 0x00000003,
+ 	0x808, 0x0000fc00,
+ 	0x80c, 0x0000000a,
+-	0x810, 0x10005388,
++	0x810, 0x10000330,
+ 	0x814, 0x020c3d10,
+ 	0x818, 0x02200385,
+ 	0x81c, 0x00000000,
+@@ -110,22 +110,22 @@ u32 RTL8192CUPHY_REG_2TARRAY[RTL8192CUPHY_REG_2TARRAY_LENGTH] = {
+ 	0xc44, 0x000100b7,
+ 	0xc48, 0xec020107,
+ 	0xc4c, 0x007f037f,
+-	0xc50, 0x6954341e,
++	0xc50, 0x69543420,
+ 	0xc54, 0x43bc0094,
+-	0xc58, 0x6954341e,
++	0xc58, 0x69543420,
+ 	0xc5c, 0x433c0094,
+ 	0xc60, 0x00000000,
+ 	0xc64, 0x5116848b,
+ 	0xc68, 0x47c00bff,
+ 	0xc6c, 0x00000036,
+ 	0xc70, 0x2c7f000d,
+-	0xc74, 0x0186115b,
++	0xc74, 0x2186115b,
+ 	0xc78, 0x0000001f,
+ 	0xc7c, 0x00b99612,
+ 	0xc80, 0x40000100,
+ 	0xc84, 0x20f60000,
+ 	0xc88, 0x40000100,
+-	0xc8c, 0x20200000,
++	0xc8c, 0xa0e40000,
+ 	0xc90, 0x00121820,
+ 	0xc94, 0x00000000,
+ 	0xc98, 0x00121820,
+@@ -226,7 +226,7 @@ u32 RTL8192CUPHY_REG_1TARRAY[RTL8192CUPHY_REG_1TARRAY_LENGTH] = {
+ 	0x804, 0x00000001,
+ 	0x808, 0x0000fc00,
+ 	0x80c, 0x0000000a,
+-	0x810, 0x10005388,
++	0x810, 0x10000330,
+ 	0x814, 0x020c3d10,
+ 	0x818, 0x02200385,
+ 	0x81c, 0x00000000,
+@@ -300,9 +300,9 @@ u32 RTL8192CUPHY_REG_1TARRAY[RTL8192CUPHY_REG_1TARRAY_LENGTH] = {
+ 	0xc44, 0x000100b7,
+ 	0xc48, 0xec020107,
+ 	0xc4c, 0x007f037f,
+-	0xc50, 0x6954341e,
++	0xc50, 0x69543420,
+ 	0xc54, 0x43bc0094,
+-	0xc58, 0x6954341e,
++	0xc58, 0x69543420,
+ 	0xc5c, 0x433c0094,
+ 	0xc60, 0x00000000,
+ 	0xc64, 0x5116848b,
+@@ -340,7 +340,7 @@ u32 RTL8192CUPHY_REG_1TARRAY[RTL8192CUPHY_REG_1TARRAY_LENGTH] = {
+ 	0xce4, 0x00000000,
+ 	0xce8, 0x37644302,
+ 	0xcec, 0x2f97d40c,
+-	0xd00, 0x00080740,
++	0xd00, 0x00000740,
+ 	0xd04, 0x00020401,
+ 	0xd08, 0x0000907f,
+ 	0xd0c, 0x20010201,
+@@ -633,17 +633,17 @@ u32 RTL8192CURADIOA_2TARRAY[RTL8192CURADIOA_2TARRAYLENGTH] = {
+ 	0x012, 0x00071000,
+ 	0x012, 0x000b0000,
+ 	0x012, 0x000fc000,
+-	0x013, 0x000287af,
++	0x013, 0x000287b3,
+ 	0x013, 0x000244b7,
+ 	0x013, 0x000204ab,
+ 	0x013, 0x0001c49f,
+ 	0x013, 0x00018493,
+-	0x013, 0x00014297,
+-	0x013, 0x00010295,
+-	0x013, 0x0000c298,
+-	0x013, 0x0000819c,
+-	0x013, 0x000040a8,
+-	0x013, 0x0000001c,
++	0x013, 0x0001429b,
++	0x013, 0x00010299,
++	0x013, 0x0000c29c,
++	0x013, 0x000081a0,
++	0x013, 0x000040ac,
++	0x013, 0x00000020,
+ 	0x014, 0x0001944c,
+ 	0x014, 0x00059444,
+ 	0x014, 0x0009944c,
+@@ -932,10 +932,10 @@ u32 RTL8192CUMAC_2T_ARRAY[RTL8192CUMAC_2T_ARRAYLENGTH] = {
+ 	0x608, 0x0000000e,
+ 	0x609, 0x0000002a,
+ 	0x652, 0x00000020,
+-	0x63c, 0x0000000a,
+-	0x63d, 0x0000000e,
+-	0x63e, 0x0000000a,
+-	0x63f, 0x0000000e,
++	0x63c, 0x00000008,
++	0x63d, 0x00000008,
++	0x63e, 0x0000000c,
++	0x63f, 0x0000000c,
+ 	0x66e, 0x00000005,
+ 	0x700, 0x00000021,
+ 	0x701, 0x00000043,
+diff --git a/drivers/net/wireless/rtlwifi/rtl8192cu/trx.c b/drivers/net/wireless/rtlwifi/rtl8192cu/trx.c
+index 265862d..6401c6f 100644
+--- a/drivers/net/wireless/rtlwifi/rtl8192cu/trx.c
++++ b/drivers/net/wireless/rtlwifi/rtl8192cu/trx.c
+@@ -350,7 +350,6 @@ bool rtl92cu_rx_query_desc(struct ieee80211_hw *hw,
+ 	}
+ 	/*rx_status->qual = stats->signal; */
+ 	rx_status->signal = stats->recvsignalpower + 10;
+-	/*rx_status->noise = -stats->noise; */
+ 	return true;
+ }
+ 
+@@ -365,7 +364,6 @@ static void _rtl_rx_process(struct ieee80211_hw *hw, struct sk_buff *skb)
+ 	u8 *rxdesc;
+ 	struct rtl_stats stats = {
+ 		.signal = 0,
+-		.noise = -98,
+ 		.rate = 0,
+ 	};
+ 	struct rx_fwinfo_92c *p_drvinfo;
+@@ -435,7 +433,7 @@ static void _rtl_rx_process(struct ieee80211_hw *hw, struct sk_buff *skb)
+ 		 (u32)hdr->addr1[2], (u32)hdr->addr1[3],
+ 		 (u32)hdr->addr1[4], (u32)hdr->addr1[5]);
+ 	memcpy(IEEE80211_SKB_RXCB(skb), rx_status, sizeof(*rx_status));
+-	ieee80211_rx_irqsafe(hw, skb);
++	ieee80211_rx(hw, skb);
+ }
+ 
+ void  rtl8192cu_rx_hdl(struct ieee80211_hw *hw, struct sk_buff * skb)
+diff --git a/drivers/net/wireless/rtlwifi/wifi.h b/drivers/net/wireless/rtlwifi/wifi.h
+index 88732e7..e020b31 100644
+--- a/drivers/net/wireless/rtlwifi/wifi.h
++++ b/drivers/net/wireless/rtlwifi/wifi.h
+@@ -1208,6 +1208,8 @@ struct rtl_dm {
+ 	bool inform_fw_driverctrldm;
+ 	bool current_mrc_switch;
+ 	u8 txpowercount;
++	u8 powerindex_backup[6];
++
+ 
+ 	u8 thermalvalue_rxgain;
+ 	u8 thermalvalue_iqk;
