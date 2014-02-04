@@ -24,3 +24,5 @@ sudo apt-get install \
 	libcwiid1 libnfs-dev libpostproc-dev libshairport-dev libswscale-dev \
 	libva-dev libva-egl1 libva-tpi1 libmp3lame-dev libtiff-dev pkg-config
 
+sudo apt-get clean
+
