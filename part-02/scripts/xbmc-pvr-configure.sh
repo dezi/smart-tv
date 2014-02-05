@@ -2,6 +2,8 @@
 # XBMC configure script
 # By dezi
 
+./bootstrap
+
 export CFLAGS="-march=native -mfloat-abi=hard \
 -mfpu=neon -ftree-vectorize \
 -mvectorize-with-neon-quad \
@@ -11,14 +13,4 @@ export CFLAGS="-march=native -mfloat-abi=hard \
 --param=ssp-buffer-size=4 \
 -D_FORTIFY_SOURCE=2"
 
-./configure \
-  --build=armv7a-hardfloat-linux-gnueabi \
-  --host=armv7a-hardfloat-linux-gnueabi \
-  --disable-ccache \
-  --disable-vdpau \
-  --disable-vaapi \
-  --disable-gl \
-  --enable-exynos4 \
-  --enable-gles \
-  --enable-x11
-
+./configure --prefix=/usr/local --enable-addons-with-dependencies
