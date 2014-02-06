@@ -8,7 +8,7 @@ rm -f odroid*
 wget https://raw.github.com/dezi/smart-tv/master/part-02/configs/$1
 cp $1 arch/arm/configs/$1
 
-rm rt2x00.dezi.diff
+rm rt2x00.dezi.diff*
 wget https://raw.github.com/dezi/smart-tv/master/part-02/patches/rt2x00.dezi.diff
 git apply rt2x00.dezi.diff
 
