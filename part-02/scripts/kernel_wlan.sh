@@ -5,11 +5,11 @@ cd install/odroid-3.8.y
 
 rm -f odroid*
 
-wget https://raw.github.com/dezi/smart-tv/master/part-02/configs/$1
+wget --no-check-certificate https://raw.github.com/dezi/smart-tv/master/part-02/configs/$1
 cp $1 arch/arm/configs/$1
 
 rm rt2x00.dezi.diff*
-wget https://raw.github.com/dezi/smart-tv/master/part-02/patches/rt2x00.dezi.diff
+wget --no-check-certificate https://raw.github.com/dezi/smart-tv/master/part-02/patches/rt2x00.dezi.diff
 git apply rt2x00.dezi.diff
 
 make $1
