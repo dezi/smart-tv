@@ -3,6 +3,8 @@
 cd
 cd install/odroid-3.8.y
 
+git pull
+
 rm -f odroid*
 
 wget --no-check-certificate https://raw.github.com/dezi/smart-tv/master/part-02/configs/$1
