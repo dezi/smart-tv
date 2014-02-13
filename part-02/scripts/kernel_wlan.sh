@@ -3,9 +3,9 @@
 cd
 cd install/odroid-3.8.y
 
-git pull
+rm -f odroid* arch/arm/configs/odroid*
 
-rm -f odroid*
+git pull
 
 wget --no-check-certificate https://raw.github.com/dezi/smart-tv/master/part-02/configs/$1
 cp $1 arch/arm/configs/$1
