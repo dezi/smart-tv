@@ -21,6 +21,7 @@ make -j5 zImage modules
 sudo make modules_install
 
 sudo cp arch/arm/boot/zImage /boot/zImage-`cat include/config/kernel.release`
+sudo cp .config /boot/config-`cat include/config/kernel.release`
 sudo update-initramfs -c -t -k `cat include/config/kernel.release`
 sudo mkimage -A arm -O linux -T ramdisk -C none -a 0 -e 0 -n uInitrd -d /boot/initrd.img-`cat include/config/kernel.release` /boot/uInitrd-`cat include/config/kernel.release`
 
