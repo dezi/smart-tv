@@ -3,7 +3,7 @@
 cd
 cd install/odroid-3.8.y
 
-rm -f odroid* arch/arm/configs/odroid*
+rm -f $1 arch/arm/configs/$1
 
 git pull
 
