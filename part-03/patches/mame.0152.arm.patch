@@ -1,0 +1,103 @@
+diff -Nru mame0152-orig/src/emu/delegate.c mame0152/src/emu/delegate.c
+--- mame0152-orig/src/emu/delegate.c	2013-10-16 09:14:50.000000000 +0200
++++ mame0152/src/emu/delegate.c	2014-02-14 17:46:30.859706706 +0100
+@@ -38,6 +38,15 @@
+ 
+ delegate_generic_function delegate_mfp::convert_to_generic(delegate_generic_class *&object) const
+ {
++#ifdef USE_ARM_HACK
++	object = reinterpret_cast<delegate_generic_class *>(reinterpret_cast<UINT8 *>(object));
++
++	if (!(m_is_virtual))
++		return reinterpret_cast<delegate_generic_function>(m_function);
++
++	UINT8 *vtable_base = *reinterpret_cast<UINT8 **>(object);
++	return *reinterpret_cast<delegate_generic_function *>(vtable_base + m_function);
++#else
+ 	// apply the "this" delta to the object first
+ 	object = reinterpret_cast<delegate_generic_class *>(reinterpret_cast<UINT8 *>(object) + m_this_delta);
+ 
+@@ -48,6 +57,7 @@
+ 	// otherwise, it is the byte index into the vtable where the actual function lives
+ 	UINT8 *vtable_base = *reinterpret_cast<UINT8 **>(object);
+ 	return *reinterpret_cast<delegate_generic_function *>(vtable_base + m_function - 1);
++#endif
+ }
+ 
+ #endif
+diff -Nru mame0152-orig/src/emu/delegate.h mame0152/src/emu/delegate.h
+--- mame0152-orig/src/emu/delegate.h	2013-10-16 09:14:50.000000000 +0200
++++ mame0152/src/emu/delegate.h	2014-02-14 17:46:24.829754331 +0100
+@@ -350,12 +350,22 @@
+ 	// default constructor
+ 	delegate_mfp()
+ 		: m_function(0),
+-			m_this_delta(0) { }
++		//	m_this_delta(0) { }
++#ifdef USE_ARM_HACK
++	m_is_virtual(0) { }
++#else
++	m_this_delta(0) { }
++#endif
+ 
+ 	// copy constructor
+ 	delegate_mfp(const delegate_mfp &src)
+ 		: m_function(src.m_function),
+-			m_this_delta(src.m_this_delta) { }
++		//	m_this_delta(src.m_this_delta) { }
++#ifdef USE_ARM_HACK
++	m_is_virtual(src.m_is_virtual) {}
++#else
++	m_this_delta(src.m_this_delta) { }
++#endif
+ 
+ 	// construct from any member function pointer
+ 	template<typename _MemberFunctionType, class _MemberFunctionClass, typename _ReturnType, typename _StaticFunctionType>
+@@ -366,7 +376,12 @@
+ 	}
+ 
+ 	// comparison helpers
++#ifdef USE_ARM_HACK
++	bool operator==(const delegate_mfp &rhs) const { return (m_function == rhs.m_function && m_is_virtual == rhs.m_is_virtual); }
++#else
+ 	bool operator==(const delegate_mfp &rhs) const { return (m_function == rhs.m_function && m_this_delta == rhs.m_this_delta); }
++#endif
++
+ 	bool isnull() const { return (m_function == 0); }
+ 
+ 	// getters
+@@ -387,7 +402,11 @@
+ 	FPTR                    m_function;         // first item can be one of two things:
+ 												//    if even, it's a pointer to the function
+ 												//    if odd, it's the byte offset into the vtable
++#ifdef USE_ARM_HACK
++	int                     m_is_virtual;
++#else
+ 	int                     m_this_delta;       // delta to apply to the 'this' pointer
++#endif
+ };
+ 
+ #endif
+diff -Nru mame0152-orig/src/emu/emualloc.c mame0152/src/emu/emualloc.c
+--- mame0152-orig/src/emu/emualloc.c	2013-10-16 09:14:50.000000000 +0200
++++ mame0152/src/emu/emualloc.c	2014-02-14 17:45:52.195018145 +0100
+@@ -265,6 +265,8 @@
+ 	// before, so if we don't find it, check 4 bytes ahead
+ 	memory_entry *entry = memory_entry::find(item.m_ptr);
+ 	if (entry == NULL)
++		entry = memory_entry::find(reinterpret_cast<UINT8 *>(item.m_ptr) - 8);
++	if (entry == NULL)
+ 		entry = memory_entry::find(reinterpret_cast<UINT8 *>(item.m_ptr) - sizeof(size_t));
+ 	assert(entry != NULL);
+ 	item.m_id = entry->m_id;
+--- mame0152-orig/makefile	2013-11-03 23:52:50.000000000 +0100
++++ mame0152/makefile	2014-02-14 17:49:28.633422474 +0100
+@@ -473,7 +473,7 @@
+ #-------------------------------------------------
+ 
+ # start with empties for everything
+-CCOMFLAGS =
++CCOMFLAGS = -DUSE_ARM_HACK -mthumb-interwork -mcpu=cortex-a9 -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard
+ CONLYFLAGS =
+ COBJFLAGS =
+ CPPONLYFLAGS =
