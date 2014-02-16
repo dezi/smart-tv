@@ -12,7 +12,8 @@
 TVHNAME="tvheadend"
 TVHBIN="/usr/local/bin/tvheadend"
 TVHUSER="odroid"
-TVHGROUP="odroid"
+TVHGROUP="video"
+TVH_DELAY=
 
 . /lib/lsb/init-functions
 
@@ -20,8 +21,12 @@ case "$1" in
   start)
     log_daemon_msg "Starting tvheadend daemon"
 
-    if ! start-stop-daemon --start --user ${TVHUSER} --exec ${TVHBIN} -- \
-                -u ${TVHUSER} -g ${TVHGROUP} -f -C; then
+    [ ! -z "$TVH_DELAY" ] && log_progress_msg "waiting..."
+    [ ! -z "$TVH_DELAY" ] && sleep $TVH_DELAY
+    [ ! -z "$TVH_DELAY" ] && log_progress_msg "done"
+
+    if ! start-stop-daemon --start --user ${TVHUSER} --group ${TVHGROUP} \
+                --exec ${TVHBIN} -- -u ${TVHUSER} -g ${TVHGROUP} -f; then
         log_end_msg 1
 	exit 1
     fi
