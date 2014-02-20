@@ -1,0 +1,97 @@
+diff -Nru resources.old/database/config_template.xml resources/database/config_template.xml
+--- resources.old/database/config_template.xml	2014-02-19 08:15:56.000000000 +0100
++++ resources/database/config_template.xml	2014-02-20 09:45:51.000000000 +0100
+@@ -171,7 +171,7 @@
+       <Scraper encoding="iso-8859-1" parseInstruction="05.02 - archive - detail.xml" source="1" />
+     </Site>
+     <Site name="maws.mameworld.info" descFilePerGame="True" searchGameByCRC="False">
+-      <Scraper parseInstruction="06 - maws.xml" source="http://maws.mameworld.info/maws/romset/%GAME%" encoding='iso-8859-1'/>
++      <Scraper parseInstruction="07 - maws.xml" source="http://www.os-smart-tv.net/mame/romset/%GAME%.xml" encoding='utf-8'/>
+     </Site>
+   </Scrapers>
+ </config>
+diff -Nru resources.old/lib/wizardconfigxml.py resources/lib/wizardconfigxml.py
+--- resources.old/lib/wizardconfigxml.py	2014-02-19 08:15:56.000000000 +0100
++++ resources/lib/wizardconfigxml.py	2014-02-19 19:01:33.000000000 +0100
+@@ -209,18 +209,20 @@
+ 				#mediaPaths
+ 				romCollection.mediaPaths = []
+ 				
+-				if(romCollection.name == 'MAME'):
+-					romCollection.mediaPaths.append(self.createMediaPath('boxfront', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('action', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('title', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('cabinet', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('marquee', artworkPath, scenarioIndex))					
+-				else:
+-					romCollection.mediaPaths.append(self.createMediaPath('boxfront', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('boxback', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('cartridge', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('screenshot', artworkPath, scenarioIndex))
+-					romCollection.mediaPaths.append(self.createMediaPath('fanart', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('boxfront', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('boxback', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('cartridge', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('screenshot', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('fanart', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('action', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('title', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('3dbox', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('romcollection', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('developer', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('publisher', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('gameplay', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('cabinet', artworkPath, scenarioIndex))
++				romCollection.mediaPaths.append(self.createMediaPath('marquee', artworkPath, scenarioIndex))					
+ 				
+ 				#other MAME specific properties
+ 				if(romCollection.name == 'MAME'):
+@@ -235,8 +237,8 @@
+ 					site.name = 'maws.mameworld.info'
+ 					scrapers = []
+ 					scraper = Scraper()
+-					scraper.parseInstruction = '06 - maws.xml'
+-					scraper.source = 'http://maws.mameworld.info/maws/romset/%GAME%'
++					scraper.parseInstruction = '07 - maws.xml'
++					scraper.source = 'http://www.os-smart-tv.net/mame/romset/%GAME%.txt'
+ 					scrapers.append(scraper)
+ 					site.scrapers = scrapers
+ 					romCollection.scraperSites = []
+@@ -412,4 +414,4 @@
+ 				
+ 		return mediaPath
+ 	
+-	
+\ No newline at end of file
++	
+Binary files resources.old/lib/wizardconfigxml.pyc and resources/lib/wizardconfigxml.pyc differ
+diff -Nru resources.old/scraper/07 - maws.xml resources/scraper/07 - maws.xml
+--- resources.old/scraper/07 - maws.xml	1970-01-01 01:00:00.000000000 +0100
++++ resources/scraper/07 - maws.xml	2014-02-20 10:06:26.000000000 +0100
+@@ -0,0 +1,26 @@
++<parserConfig>
++    <GameGrammar type="xml" root="">
++        <Game>info/game</Game>
++        <Platform>info/platform</Platform>
++        <Region>info/region</Region>		
++        <Genre>info/genre</Genre>
++        <ReleaseYear>info/release_year</ReleaseYear>
++        <Developer>info/devloper</Developer>
++        <Publisher>info/publisher</Publisher>		
++        <Description>desc</Description>
++        <Filetypeboxfront>artwork/boxfront</Filetypeboxfront>
++        <Filetypeboxback>artwork/boxback</Filetypeboxback>
++        <Filetypecartridge>artwork/cartridge</Filetypecartridge>
++        <Filetypescreenshot>artwork/screenshot</Filetypescreenshot>
++        <Filetypefanart>artwork/fanart</Filetypefanart>
++        <Filetypeaction>artwork/action</Filetypeaction>
++        <Filetypetitle>artwork/title</Filetypetitle>
++        <Filetype3dbox>artwork/dddbox</Filetype3dbox>
++        <Filetyperomcollection>artwork/romcollection</Filetyperomcollection>
++        <Filetypedeveloper>artwork/developer</Filetypedeveloper>
++        <Filetypepublisher>artwork/publisher</Filetypepublisher>
++        <Filetypegameplay>artwork/gameplay</Filetypegameplay>
++        <Filetypecabinet>artwork/cabinet</Filetypecabinet>
++        <Filetypemarquee>artwork/marquee</Filetypemarquee>
++	</GameGrammar>
++</parserConfig>
