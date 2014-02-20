@@ -18,3 +18,5 @@ zip -r script.games.rom.collection.browser-2.0.10-patched.zip script.games.rom.c
 
 rm -f script.games.rom.collection.browser-2.0.10.zip
 
+rm -rf script.games.rom.collection.browser
+
