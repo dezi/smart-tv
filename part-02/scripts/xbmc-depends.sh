@@ -22,7 +22,8 @@ sudo apt-get install \
 	libavfilter-dev libavformat-dev libavutil-dev libbluetooth-dev \
 	libbluray-dev libbluray1 libcec-dev libcurl4-gnutls-dev libcwiid-dev \
 	libcwiid1 libnfs-dev libpostproc-dev libshairport-dev libswscale-dev \
-	libva-dev libva-egl1 libva-tpi1 libmp3lame-dev libtiff-dev pkg-config
+	libva-dev libva-egl1 libva-tpi1 libmp3lame-dev libtiff-dev libxslt1-dev \
+	pkg-config
 
 sudo apt-get clean
 
