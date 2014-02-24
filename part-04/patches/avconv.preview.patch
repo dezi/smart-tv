@@ -1,0 +1,34 @@
+--- a/avconv.orig	2014-02-20 17:38:40.017414355 +0100
++++ b/avconv.c	2014-02-20 17:34:23.665172354 +0100
+@@ -4993,6 +4993,31 @@
+     OptionsContext o = { 0 };
+     int64_t ti;
+ 
++    //
++    // Check for still video generation
++    // and fix start time.
++    //
++
++    int have_vframes = 0;
++    int have_startt  = 0;
++
++    for (int inx = 0; inx + 1 < argc; inx++)
++    {
++        if ((! strcmp(argv[ inx + 0 ],"-vframes")) &&
++            (! strcmp(argv[ inx + 1 ],"1")))
++        {
++            have_vframes = inx + 1;
++        }
++
++        if ((! strcmp(argv[ inx + 0 ],"-ss")) &&
++            (! strcmp(argv[ inx + 1 ],"0.0")))
++        {
++            have_startt = inx + 1;
++        }
++    }
++
++    if ((have_vframes > 0) && (have_startt > 0)) argv[ have_startt ] = (char *) "60.0";
++
+     reset_options(&o);
+ 
+     av_log_set_flags(AV_LOG_SKIP_REPEATED);
