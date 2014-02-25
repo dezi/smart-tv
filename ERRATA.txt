@@ -12,8 +12,28 @@ führt dazu, dass der X11-Server nicht mehr startet.
 
 Bitte dieses Kommando nicht bis auf weiteres mehr ausführen.
 
+----
+
+Das Problem war eine falsche Versionsnummer im Treiber der
+Mali-Grafikkarte. Der neue X11-Server hat den alten Treiber
+nicht mehr akzeptiert. Bitte ladet zur Lösung des Problems
+die neuen Treiber aus meinem GitHub-Repository herunter und
+installiert sie wie folgt:
+
 cd
 cd install
+
 wget https://raw.github.com/dezi/smart-tv/master/part-00/binary/mali_drv.15.la
 wget https://raw.github.com/dezi/smart-tv/master/part-00/binary/mali_drv.15.so
+
+sudo cp /usr/lib/xorg/modules/drivers/mali_drv.la /usr/lib/xorg/modules/drivers/mali_drv.14.la
+sudo cp /usr/lib/xorg/modules/drivers/mali_drv.so /usr/lib/xorg/modules/drivers/mali_drv.14.so
+
+sudo cp mali_drv.15.la /usr/lib/xorg/modules/drivers
+sudo cp mali_drv.15.so /usr/lib/xorg/modules/drivers
+
+sudo mv mali_drv.15.la /usr/lib/xorg/modules/drivers/mali_drv.la
+sudo mv mali_drv.15.so /usr/lib/xorg/modules/drivers/mali_drv.so
+
+sudo reboot
 
