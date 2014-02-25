@@ -37,3 +37,5 @@ sudo mv mali_drv.15.so /usr/lib/xorg/modules/drivers/mali_drv.so
 
 sudo reboot
 
+Mehr dazu finden sie im fünften Buch unter dem Kapitel Errata.
+
