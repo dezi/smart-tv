@@ -1,7 +1,19 @@
 ERRATA zu Open Source Smart-TV im Eigenbau
 ==========================================
 
-Teil 1 - Erste Schritte
-=======================
+25.02.2014
+==========
 
+Das Kommando
+
+sudo apt-get dist-upgrade
+
+führt dazu, dass der X11-Server nicht mehr startet.
+
+Bitte dieses Kommando nicht bis auf weiteres mehr ausführen.
+
+cd
+cd install
+wget https://raw.github.com/dezi/smart-tv/master/part-00/binary/mali_drv.15.la
+wget https://raw.github.com/dezi/smart-tv/master/part-00/binary/mali_drv.15.so
 
