@@ -1,8 +1,8 @@
 ERRATA zu Open Source Smart-TV im Eigenbau
 ==========================================
 
-25.02.2014
-==========
+25.02.2014 X11 und Desktop startet nicht mehr
+=============================================
 
 Das Kommando
 
@@ -10,11 +10,9 @@ sudo apt-get dist-upgrade
 
 führt dazu, dass der X11-Server nicht mehr startet.
 
-Bitte dieses Kommando nicht bis auf weiteres mehr ausführen.
-
 ----
 
-Das Problem war eine falsche Versionsnummer im Treiber der
+Das Problem ist eine falsche Versionsnummer im Treiber der
 Mali-Grafikkarte. Der neue X11-Server hat den alten Treiber
 nicht mehr akzeptiert. Bitte ladet zur Lösung des Problems
 die neuen Treiber aus meinem GitHub-Repository herunter und
@@ -37,5 +35,5 @@ sudo mv mali_drv.15.so /usr/lib/xorg/modules/drivers/mali_drv.so
 
 sudo reboot
 
-Mehr dazu finden sie im fünften Buch unter dem Kapitel Errata.
-
+Mehr dazu finden sie im fünften Buch "Smart-TV Surfen mit Tor" 
+im Kapitel Errata.
