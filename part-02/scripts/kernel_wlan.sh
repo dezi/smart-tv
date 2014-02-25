@@ -1,11 +1,13 @@
 #!/bin/sh
 
 cd
-cd install/odroid-3.8.y
+cd install
 
-rm -f $1 arch/arm/configs/$1
+rm -rf odroid-3.8.y
 
-git pull
+git clone --depth 1 https://github.com/hardkernel/linux.git -b odroid-3.8.y odroid-3.8.y
+
+cd odroid-3.8.y
 
 wget --no-check-certificate https://raw.github.com/dezi/smart-tv/master/part-02/configs/$1
 mv $1 arch/arm/configs/$1
