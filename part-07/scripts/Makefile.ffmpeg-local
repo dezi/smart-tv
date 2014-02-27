@@ -18,6 +18,11 @@ all: ffmpeg
 $(ffmpeg): 
 	git clone http://git.videolan.org/git/ffmpeg.git $(ffmpeg)
 
+#####################################################################
+#
+# ffmpeg integrate logo filter
+#
+
 $(ffmpeg)/libavfilter/vf_logo.c:
 	cd $(ffmpeg)/libavfilter; \
 	wget https://raw.github.com/dezi/raspi/master/filters/vf_logo.c -O vf_logo.c; \
@@ -30,6 +35,11 @@ $(ffmpeg)/libavfilter/vf_logo.c:
 		sed -i '$$ a\\nOBJS-$$(CONFIG_LOGO_FILTER) += vf_logo.o' Makefile; \
 	fi; \
 	
+#####################################################################
+#
+# ffmpeg common options
+#
+
 ffmpeg-options = \
 	--enable-gpl \
 	--enable-nonfree \
@@ -88,19 +98,6 @@ ffmpeg-options = \
 	--enable-opengl \
 	--enable-x11grab \
 
-ffmpeg-shared = \
-	--enable-shared \
-	--enable-static \
-	--enable-libaacplus \
-	--enable-libopus \
-	--enable-libquvi \
-	--enable-openssl \
-
-ffmpeg-static = \
-	--enable-static \
-	--disable-shared \
-	--extra-ldflags="-v" \
-
 ffmpeg-optionsfail = \
 	--enable-libstagefright-h264 \
 	--enable-libx265 \
@@ -129,6 +126,18 @@ $(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.shared.conf
 	sudo make install-libs install-headers; \
 	make distclean; \
 	touch dezi.avlibs.done
+
+#####################################################################
+#
+# ffmpeg shared executable with shared libraries
+#
+
+ffmpeg-shared = \
+	--disable-shared \
+	--enable-static \
+	--enable-libopus \
+	--enable-libquvi \
+	--enable-openssl \
 	
 $(ffmpeg)/dezi.shared.conf:
 	cd $(ffmpeg); \
@@ -144,6 +153,16 @@ $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
 	sudo mv -f /usr/local/bin/ffprobe  /usr/local/bin/ffprobe-shared; \
 	sudo mv -f /usr/local/bin/ffserver /usr/local/bin/ffserver-shared; \
 	touch dezi.shared.done
+
+#####################################################################
+#
+# ffmpeg shared executable mostly static libraries
+#
+
+ffmpeg-static = \
+	--disable-shared \
+	--enable-static \
+	--extra-ldflags="-v" \
 	
 $(ffmpeg)/dezi.static.conf:
 	cd $(ffmpeg); \
