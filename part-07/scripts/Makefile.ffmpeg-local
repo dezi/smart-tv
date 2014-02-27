@@ -179,6 +179,11 @@ $(ffmpeg)/dezi.static.done: $(ffmpeg)/dezi.static.conf
 	sudo mv -f /usr/local/bin/ffprobe  /usr/local/bin/ffprobe-static; \
 	sudo mv -f /usr/local/bin/ffserver /usr/local/bin/ffserver-static; \
 	touch dezi.static.done
+
+#####################################################################
+#
+# ffmpeg all
+#
 	
 ffmpeg: \
 	$(ffmpeg) \
@@ -187,7 +192,6 @@ ffmpeg: \
 	$(ffmpeg)/dezi.avlibs.done \
 	$(ffmpeg)/dezi.shared.conf \
 	$(ffmpeg)/dezi.shared.done \
-
-ffmpeg-todo:
 	$(ffmpeg)/dezi.static.conf \
 	$(ffmpeg)/dezi.static.done \
+
