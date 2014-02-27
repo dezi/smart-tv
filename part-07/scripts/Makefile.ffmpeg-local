@@ -147,7 +147,8 @@ $(ffmpeg)/dezi.shared.conf:
 $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
 	cd $(ffmpeg); \
 	make -j8 || exit; \
-	sudo make install
+	sudo make install; \
+	make distclean; \
 	sudo mv -f /usr/local/bin/ffmpeg   /usr/local/bin/ffmpeg-shared; \
 	sudo mv -f /usr/local/bin/ffplay   /usr/local/bin/ffplay-shared; \
 	sudo mv -f /usr/local/bin/ffprobe  /usr/local/bin/ffprobe-shared; \
@@ -171,7 +172,7 @@ $(ffmpeg)/dezi.static.conf:
 
 $(ffmpeg)/dezi.static.done: $(ffmpeg)/dezi.static.conf
 	cd $(ffmpeg); \
-	make || exit; \
+	make -j8 || exit; \
 	sudo make install; \
 	sudo mv -f /usr/local/bin/ffmpeg   /usr/local/bin/ffmpeg-static; \
 	sudo mv -f /usr/local/bin/ffplay   /usr/local/bin/ffplay-static; \
@@ -184,8 +185,9 @@ ffmpeg: \
 	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.avlibs.conf \
 	$(ffmpeg)/dezi.avlibs.done \
-
-ffmpeg-todo:
 	$(ffmpeg)/dezi.shared.conf \
 	$(ffmpeg)/dezi.shared.done \
+
+ffmpeg-todo:
+	$(ffmpeg)/dezi.static.conf \
 	$(ffmpeg)/dezi.static.done \
