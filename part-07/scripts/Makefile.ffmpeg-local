@@ -49,7 +49,6 @@ ffmpeg-options = \
 	--enable-frei0r \
 	--enable-gnutls \
 	--enable-ladspa \
-	--enable-libaacplus \
 	--enable-libass \
 	--enable-libbluray \
 	--enable-libcaca \
@@ -109,6 +108,7 @@ ffmpeg-optionsfail = \
 ffmpeg-avlibs = \
 	--enable-shared \
 	--enable-static \
+	--enable-libaacplus \
 	--enable-libopencv \
 	--enable-libopus \
 	--enable-libquvi \
@@ -135,6 +135,7 @@ $(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.shared.conf
 ffmpeg-shared = \
 	--disable-shared \
 	--enable-static \
+	--enable-libaacplus \
 	--enable-libopencv \
 	--enable-libopus \
 	--enable-libquvi \
@@ -213,6 +214,6 @@ ffmpeg-static: \
 	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.static.conf \
 	$(ffmpeg)/dezi.static.libs \
-	#$(ffmpeg)/dezi.static.done
+	$(ffmpeg)/dezi.static.done
 	
 ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static
