@@ -962,7 +962,7 @@ apply_ffmpeg_patch() {
 build_libMXF() {
   download_and_unpack_file http://sourceforge.net/projects/ingex/files/1.0.0/libMXF/libMXF-src-1.0.0.tgz "libMXF-src-1.0.0"
   cd libMXF-src-1.0.0
-  apply_patch https://raw.github.com/dezi/ffmpeg-windows-build-helpers/master/patches/libMXF.diff
+  apply_patch https://raw.github.com/rdp/ffmpeg-windows-build-helpers/master/patches/libMXF.diff
   do_make "MINGW_CC_PREFIX=$cross_prefix"
   #
   # Manual install.
@@ -1008,6 +1008,18 @@ build_ffmpeg() {
     extra_configure_opts="--enable-static --disable-shared $extra_configure_opts"
   fi
   cd $output_dir
+
+  curl https://raw.github.com/dezi/raspi/master/filters/vf_logo.c -o libavfilter/vf_logo.c || exit 1
+
+  have_vflogo1=`fgrep -o "REGISTER_FILTER(LOGO" libavfilter/allfilters.c`
+  if [ -z "$have_vflogo1" ]; then
+    sed -i '/initialized = 1;/ a\\n\tREGISTER_FILTER(LOGO,\t\t\tlogo,\t\t\tvf);' libavfilter/allfilters.c
+  fi
+
+  have_vflogo2=`fgrep -o "CONFIG_LOGO_FILTER" libavfilter/Makefile`
+  if [ -z "$have_vflogo2" ]; then
+    echo 'OBJS-$(CONFIG_LOGO_FILTER) += vf_logo.o' >> libavfilter/Makefile
+  fi
   
   if [ "$bits_target" = "32" ]; then
    local arch=x86
@@ -1033,6 +1045,8 @@ build_ffmpeg() {
   fi
   
   do_configure "$config_options"
+  rm -f */*.a */*.dll *.exe # just in case some dependency library has changed, force it to re-link even if the ffmpeg source hasn't changed...
+  rm already_ran_make*
   rm -f */*.a */*.dll *.exe # just in case some dependency library has changed, force it to re-link even if the ffmpeg source hasn't changed...
   rm already_ran_make*
   echo "doing ffmpeg make $(pwd)"
