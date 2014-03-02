@@ -69,7 +69,6 @@ ffmpeg-options = \
 	--enable-libnut \
 	--enable-libopencore-amrnb \
 	--enable-libopencore-amrwb \
-	--enable-libopencv \
 	--enable-libopenjpeg \
 	--enable-libpulse \
 	--enable-librtmp \
@@ -95,7 +94,6 @@ ffmpeg-options = \
 	--enable-libzvbi \
 	--enable-openal \
 	--enable-opencl \
-	--enable-opengl \
 	--enable-x11grab \
 
 ffmpeg-optionsfail = \
@@ -111,8 +109,10 @@ ffmpeg-optionsfail = \
 ffmpeg-avlibs = \
 	--enable-shared \
 	--enable-static \
+	--enable-libopencv \
 	--enable-libopus \
 	--enable-libquvi \
+	--enable-opengl \
 	--enable-openssl \
 
 $(ffmpeg)/dezi.avlibs.conf:
@@ -135,8 +135,10 @@ $(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.shared.conf
 ffmpeg-shared = \
 	--disable-shared \
 	--enable-static \
+	--enable-libopencv \
 	--enable-libopus \
 	--enable-libquvi \
+	--enable-opengl \
 	--enable-openssl \
 	
 $(ffmpeg)/dezi.shared.conf:
@@ -170,14 +172,18 @@ $(ffmpeg)/dezi.static.conf:
 	./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
 	touch dezi.static.conf
 
-$(ffmpeg)/dezi.static.load:
+$(ffmpeg)/dezi.static.libs:
+	cd $(ffmpeg); \
+	make -j8 || exit; \
+	cd ..; \
 	wget https://raw.github.com/dezi/smart-tv/master/part-07/scripts/ffmpeg-analyze.php -O ffmpeg-analyze.php; \
-	php ffmpeg-analyze.php ffmpeg-git/ffmpeg; \
-	touch dezi.static.load
+	php ffmpeg-analyze.php ffmpeg-git/ffmpeg > ffmpeg-static.log; \
+	cd $(ffmpeg); \
+	touch dezi.static.libs
 
 $(ffmpeg)/dezi.static.done: $(ffmpeg)/dezi.static.conf
 	cd $(ffmpeg); \
-	make -j8 || exit; \
+	make || exit; \
 	sudo make install; \
 	sudo mv -f /usr/local/bin/ffmpeg   /usr/local/bin/ffmpeg-static; \
 	sudo mv -f /usr/local/bin/ffplay   /usr/local/bin/ffplay-static; \
@@ -206,6 +212,7 @@ ffmpeg-static: \
 	$(ffmpeg) \
 	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.static.conf \
-	$(ffmpeg)/dezi.static.done
+	$(ffmpeg)/dezi.static.libs \
+	#$(ffmpeg)/dezi.static.done
 	
 ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static
