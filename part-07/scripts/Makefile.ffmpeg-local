@@ -170,6 +170,11 @@ $(ffmpeg)/dezi.static.conf:
 	./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
 	touch dezi.static.conf
 
+$(ffmpeg)/dezi.static.load:
+	wget https://raw.github.com/dezi/smart-tv/master/part-07/scripts/ffmpeg-analyze.php -O ffmpeg-analyze.php; \
+	php ffmpeg-analyze.php ffmpeg-git/ffmpeg; \
+	touch dezi.static.load
+
 $(ffmpeg)/dezi.static.done: $(ffmpeg)/dezi.static.conf
 	cd $(ffmpeg); \
 	make -j8 || exit; \
@@ -185,13 +190,22 @@ $(ffmpeg)/dezi.static.done: $(ffmpeg)/dezi.static.conf
 # ffmpeg all
 #
 	
-ffmpeg: \
+ffmpeg-avlibs: \
 	$(ffmpeg) \
 	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.avlibs.conf \
-	$(ffmpeg)/dezi.avlibs.done \
+	$(ffmpeg)/dezi.avlibs.done
+	
+ffmpeg-shared: \
+	$(ffmpeg) \
+	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.shared.conf \
-	$(ffmpeg)/dezi.shared.done \
+	$(ffmpeg)/dezi.shared.done
+	
+ffmpeg-static: \
+	$(ffmpeg) \
+	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.static.conf \
-	$(ffmpeg)/dezi.static.done \
-
+	$(ffmpeg)/dezi.static.done
+	
+ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static

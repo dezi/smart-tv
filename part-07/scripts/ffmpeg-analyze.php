@@ -95,14 +95,15 @@ $extrashared = "";
 $extrastatic = "";
 $extraboth   = "";
 
-$parts = explode("/",$rootmod);
-array_pop($parts);
-array_pop($parts);
-$staticpath = implode("/",$parts) . "/ffmpeg-static";
+$staticpath = "./ffmpeg-static";
 
 if (file_exists($staticpath))
 {
 	@exec("rm $staticpath/*");
+}
+else
+{
+	@mkdir($staticpath);
 }
 
 while (true)
@@ -191,13 +192,26 @@ while (true)
 	$extraboth   = trim(trim($thisboth)   . " " . $extraboth  );
 }
 
-echo "EXTRALIBS=-L../ffmpeg-static $extrastatic";
-echo " ";
-echo "$extrashared";
-echo "\n";
+$extralibs = "EXTRALIBS=-L../ffmpeg-static $extraboth";
+
+echo "STATIC=$extrastatic\n";
+echo "SHARED=$extrashared\n";
 echo "\n";
 
-echo "EXTRALIBS=-L../ffmpeg-static $extraboth";
+echo "$extralibs\n";
 echo "\n";
+
+if (file_exists("ffmpeg-git/config.mak"))
+{
+	file_put_contents("ffmpeg-git/config.mak",$extralibs,FILE_APPEND);
+	@unlink("ffmpeg-git/ffmpeg");
+	@unlink("ffmpeg-git/ffmpeg_g");
+	@unlink("ffmpeg-git/ffplay");
+	@unlink("ffmpeg-git/ffplay_g");
+	@unlink("ffmpeg-git/ffprobe");
+	@unlink("ffmpeg-git/ffprobe_g");
+	@unlink("ffmpeg-git/ffserver");
+	@unlink("ffmpeg-git/ffserver_g");
+}
 
 ?>
