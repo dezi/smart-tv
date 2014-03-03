@@ -394,19 +394,3 @@ sudo make install
 make clean
 cd ..
 
-#
-# OpenSSL bereitstellen
-#
-# OpenSSL ist Werkzeugsatz für das
-# Secure Socket Layer (SSL) - Kryptographiewerkzeug
-# und wird wie folgt bereitgestellt:
-#
-
-wget http://ftp.de.debian.org/debian/pool/main/o/openssl/openssl_1.0.1f.orig.tar.gz
-tar xvf openssl_1.0.1f.orig.tar.gz
-cd openssl-1.0.1f
-./config
-make
-sudo cp libssl.a /usr/local/lib
-sudo cp libcrypto.a /usr/local/lib
-
