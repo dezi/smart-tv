@@ -388,7 +388,7 @@ cd ..
 wget http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.2.1.orig.tar.bz2
 tar xvf libva_1.2.1.orig.tar.bz2
 cd libva-1.2.1
-./configure --enable-static --enable-sharec
+./configure --enable-static --enable-shared
 make -j6
 sudo make install
 make clean
