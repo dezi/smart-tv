@@ -93,6 +93,7 @@ ffmpeg-options = \
 	--enable-libzvbi \
 	--enable-openal \
 	--enable-opencl \
+	--enable-openssl \
 	--enable-x11grab \
 
 ffmpeg-optionsfail = \
@@ -113,7 +114,6 @@ ffmpeg-avlibs = \
 	--enable-libopus \
 	--enable-libquvi \
 	--enable-opengl \
-	--enable-openssl \
 
 $(ffmpeg)/dezi.avlibs.conf:
 	cd $(ffmpeg); \
@@ -140,7 +140,6 @@ ffmpeg-shared = \
 	--enable-libopus \
 	--enable-libquvi \
 	--enable-opengl \
-	--enable-openssl \
 	
 $(ffmpeg)/dezi.shared.conf:
 	cd $(ffmpeg); \
@@ -215,6 +214,6 @@ ffmpeg-static: \
 	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.static.conf \
 	$(ffmpeg)/dezi.static.libs \
-	#$(ffmpeg)/dezi.static.done
+	$(ffmpeg)/dezi.static.done
 	
 ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static
