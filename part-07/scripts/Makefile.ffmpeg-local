@@ -164,6 +164,7 @@ $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
 #
 
 ffmpeg-static = \
+	--disable-vdpau \
 	--disable-shared \
 	--enable-static \
 	--extra-ldflags="-v" \
@@ -214,6 +215,6 @@ ffmpeg-static: \
 	$(ffmpeg)/libavfilter/vf_logo.c \
 	$(ffmpeg)/dezi.static.conf \
 	$(ffmpeg)/dezi.static.libs \
-	$(ffmpeg)/dezi.static.done
+	#$(ffmpeg)/dezi.static.done
 	
 ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static
