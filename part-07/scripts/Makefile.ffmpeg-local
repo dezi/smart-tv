@@ -120,7 +120,7 @@ $(ffmpeg)/dezi.avlibs.conf:
 	./configure $(ffmpeg-options) $(ffmpeg-avlibs) || exit; \
 	touch dezi.avlibs.conf
 	
-$(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.shared.conf
+$(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.avlibs.conf
 	cd $(ffmpeg); \
 	make -j8 || exit; \
 	sudo make install-libs install-headers; \
