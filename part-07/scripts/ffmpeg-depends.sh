@@ -87,6 +87,7 @@ libtheora-dev \
 libtinfo-dev \
 libts-dev \
 libtwolame-dev \
+libudev-dev \
 libusb-dev \
 libv4l-dev \
 libvo-aacenc-dev \
@@ -100,8 +101,10 @@ libx11-dev \
 libx264-dev \
 libxau-dev \
 libxcb1-dev \
+libxcb-xfixes0-dev \
 libxdmcp-dev \
 libxext-dev \
+libxfixes-dev \
 libxi-dev \
 libxml2-dev \
 libxtst-dev \
