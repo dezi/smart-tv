@@ -21,7 +21,6 @@ GYP_DEFINES="$GYP_DEFINES disable_nacl=1"
 
 # do not use embedded third_party/gold as the linker.
 # GYP_DEFINES="$GYP_DEFINES linux_use_gold_binary=0 linux_use_gold_flags=0"
-
 # disable tcmalloc
 GYP_DEFINES="$GYP_DEFINES linux_use_tcmalloc=0"
 
@@ -30,14 +29,14 @@ GYP_DEFINES="$GYP_DEFINES linux_use_tcmalloc=0"
 GYP_DEFINES="$GYP_DEFINES linux_link_gsettings=1"
 
 # Use ARM architecture
-GYP_DEFINES="$GYP_DEFINES -DUSE_EABI_HARDFLOAT"
+GYP_DEFINES="$GYP_DEFINES target_arch=arm"
 GYP_DEFINES="$GYP_DEFINES v8_use_arm_eabi_hardfloat=true"
 GYP_DEFINES="$GYP_DEFINES arm_fpu=neon"
 GYP_DEFINES="$GYP_DEFINES arm_float_abi=hard"
 GYP_DEFINES="$GYP_DEFINES arm_thumb=1"
 GYP_DEFINES="$GYP_DEFINES armv7=1"
 GYP_DEFINES="$GYP_DEFINES arm_neon=1"
-GYP_DEFINES="$GYP_DEFINES target_arch=arm"
+GYP_DEFINES="$GYP_DEFINES -DUSE_EABI_HARDFLOAT=1"
 
 export GYP_DEFINES
 
