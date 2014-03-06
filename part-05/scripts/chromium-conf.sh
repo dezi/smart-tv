@@ -19,6 +19,11 @@ GYP_DEFINES="$GYP_DEFINES use_gconf=1 use_gio=1"
 # disable native client (nacl)
 GYP_DEFINES="$GYP_DEFINES disable_nacl=1"
 
+#Debian Chromium Api Key
+GYP_DEFINES += google_api_key='AIzaSyCkfPOPZXDKNn8hhgu3JrA62wIgC93d44k'
+GYP_DEFINES += google_default_client_id='811574891467.apps.googleusercontent.com'
+GYP_DEFINES += google_default_client_secret='kdloedMFGdGla2P1zacGjAQh'
+
 # do not use embedded third_party/gold as the linker.
 # GYP_DEFINES="$GYP_DEFINES linux_use_gold_binary=0 linux_use_gold_flags=0"
 
