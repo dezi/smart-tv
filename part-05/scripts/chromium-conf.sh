@@ -35,8 +35,8 @@ GYP_DEFINES="$GYP_DEFINES linux_use_tcmalloc=0"
 GYP_DEFINES="$GYP_DEFINES linux_link_gsettings=1"
 
 # Sandbox definitions
-GYP_DEFINES="linux_sandbox_path=/usr/local/lib/chrome/chrome-sandbox"
-GYP_DEFINES="linux_sandbox_chrome_path=/usr/local/lib/chrome/chrome"
+GYP_DEFINES="$GYP_DEFINES linux_sandbox_path=/usr/local/lib/chrome/chrome-sandbox"
+GYP_DEFINES="$GYP_DEFINES linux_sandbox_chrome_path=/usr/local/lib/chrome/chrome"
 
 # Use ARM architecture
 GYP_DEFINES="$GYP_DEFINES target_arch=arm"

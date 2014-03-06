@@ -1043,6 +1043,8 @@ build_ffmpeg() {
   else
     config_options="$config_options --enable-runtime-cpudetect"
   fi
+
+  config_options="$config_options --disable-sse2"
   
   do_configure "$config_options"
   rm -f */*.a */*.dll *.exe # just in case some dependency library has changed, force it to re-link even if the ffmpeg source hasn't changed...
