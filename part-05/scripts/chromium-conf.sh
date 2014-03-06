@@ -34,6 +34,10 @@ GYP_DEFINES="$GYP_DEFINES linux_use_tcmalloc=0"
 # This makes breakages easier to detect by revdep-rebuild.
 GYP_DEFINES="$GYP_DEFINES linux_link_gsettings=1"
 
+# Sandbox definitions
+GYP_DEFINES="linux_sandbox_path=/usr/local/lib/chrome/chrome-sandbox"
+GYP_DEFINES="linux_sandbox_chrome_path=/usr/local/lib/chrome/chrome"
+
 # Use ARM architecture
 GYP_DEFINES="$GYP_DEFINES target_arch=arm"
 GYP_DEFINES="$GYP_DEFINES v8_use_arm_eabi_hardfloat=true"
