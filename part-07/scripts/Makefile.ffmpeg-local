@@ -117,6 +117,7 @@ ffmpeg-avlibs = \
 
 $(ffmpeg)/dezi.avlibs.conf:
 	cd $(ffmpeg); \
+	make distclean; \
 	./configure $(ffmpeg-options) $(ffmpeg-avlibs) || exit; \
 	touch dezi.avlibs.conf
 	
