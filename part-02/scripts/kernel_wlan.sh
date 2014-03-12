@@ -31,3 +31,4 @@ sudo cp /boot/zImage-`cat include/config/kernel.release` /boot/zImage
 sudo cp /boot/uInitrd-`cat include/config/kernel.release` /boot/uInitrd
 
 sudo mv /etc/modprobe.d/blacklist-ralink.conf /etc/modprobe.d/blacklist-ralink.noconf
+sudo rm -f /etc/modprobe.d/rtl8192cu.conf
