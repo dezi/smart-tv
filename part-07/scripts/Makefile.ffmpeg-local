@@ -41,6 +41,7 @@ $(ffmpeg)/libavfilter/vf_logo.c:
 #
 
 ffmpeg-options = \
+	--disable-sse2 \
 	--enable-gpl \
 	--enable-nonfree \
 	--enable-version3 \
