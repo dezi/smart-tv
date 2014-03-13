@@ -226,7 +226,8 @@ ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static
 #
 
 ffmpeg-update:
-	cd ffmpeg-git; i\
+	cd ffmpeg-git; \
+	make distclean; \
 	git pull; \
 	rm -f dezi.*
 	make ffmpeg
