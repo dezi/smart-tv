@@ -24,6 +24,7 @@ libcv-dev \
 libdbus-1-dev \
 libdirectfb-dev \
 libexpat1-dev \
+libfaac-dev \
 libffi-dev \
 libflac-dev \
 libfontconfig1-dev \
