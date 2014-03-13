@@ -219,3 +219,15 @@ ffmpeg-static: \
 	$(ffmpeg)/dezi.static.done
 	
 ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static
+
+#####################################################################
+#
+# ffmpeg all
+#
+
+ffmpeg-update:
+	cd ffmpeg-git; i\
+	git pull; \
+	rm -f dezi.*
+	make ffmpeg
+
