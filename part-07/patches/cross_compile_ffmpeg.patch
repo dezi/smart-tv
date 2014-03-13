@@ -1,0 +1,30 @@
+--- a/cross_compile_ffmpeg.sh	2014-03-13 09:12:20.252392755 +0100
++++ b/cross_compile_ffmpeg.sh	2014-03-13 09:15:43.020508695 +0100
+@@ -1055,6 +1055,18 @@
+     extra_configure_opts="--enable-static --disable-shared $extra_configure_opts"
+   fi
+   cd $output_dir
++
++  curl https://raw.github.com/dezi/raspi/master/filters/vf_logo.c -o libavfilter/vf_logo.c || exit 1
++
++  have_vflogo1=`fgrep -o "REGISTER_FILTER(LOGO" libavfilter/allfilters.c`
++  if [ -z "$have_vflogo1" ]; then
++    sed -i '/initialized = 1;/ a\\n\tREGISTER_FILTER(LOGO,\t\t\tlogo,\t\t\tvf);' libavfilter/allfilters.c
++  fi
++
++  have_vflogo2=`fgrep -o "CONFIG_LOGO_FILTER" libavfilter/Makefile`
++  if [ -z "$have_vflogo2" ]; then
++    echo 'OBJS-$(CONFIG_LOGO_FILTER) += vf_logo.o' >> libavfilter/Makefile
++  fi
+   
+   if [ "$bits_target" = "32" ]; then
+    local arch=x86
+@@ -1078,6 +1090,8 @@
+   else
+     config_options="$config_options --enable-runtime-cpudetect"
+   fi
++
++  config_options="$config_options --disable-sse2"
+   
+   do_configure "$config_options"
+   rm -f */*.a */*.dll *.exe # just in case some dependency library has changed, force it to re-link even if the ffmpeg source hasn't changed...
