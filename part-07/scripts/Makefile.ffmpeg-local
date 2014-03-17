@@ -104,6 +104,38 @@ ffmpeg-optionsfail = \
 
 #####################################################################
 #
+# ffmpeg shared and static pure minimal libraries only
+#
+
+ffmpeg-avpure = \
+	--enable-shared \
+	--enable-static \
+	--disable-vda \
+	--disable-dxva2 \
+	--disable-vaapi \
+	--disable-vdpau \
+
+$(ffmpeg)/dezi.avpure.conf:
+	cd $(ffmpeg); \
+	make distclean; \
+	./configure $(ffmpeg-avpure) || exit; \
+	touch dezi.avpure.conf
+	
+$(ffmpeg)/dezi.avpure.done: $(ffmpeg)/dezi.avpure.conf
+	cd $(ffmpeg); \
+	make -j8 || exit; \
+	sudo cp libavutil/libavutil.a /usr/local/lib/libavutil_pure.a ; \
+	sudo cp libavcodec/libavcodec.a /usr/local/lib/libavcodec_pure.a; \
+	sudo cp libavdevice/libavdevice.a /usr/local/lib/libavdevice_pure.a ; \
+	sudo cp libavfilter/libavfilter.a /usr/local/lib/libavfilter_pure.a ; \
+	sudo cp libavformat/libavformat.a /usr/local/lib/libavformat_pure.a ; \
+	sudo cp libswscale/libswscale.a /usr/local/lib/libswscale_pure.a ; \
+	sudo cp libswresample/libswresample.a /usr/local/lib/libswresample_pure.a ; \
+	sudo make install-headers; \
+	touch dezi.avpure.done
+
+#####################################################################
+#
 # ffmpeg shared and static libraries only
 #
 
@@ -126,7 +158,6 @@ $(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.avlibs.conf
 	cd $(ffmpeg); \
 	make -j8 || exit; \
 	sudo make install-libs install-headers; \
-	make distclean; \
 	touch dezi.avlibs.done
 
 #####################################################################
@@ -145,6 +176,7 @@ ffmpeg-shared = \
 	
 $(ffmpeg)/dezi.shared.conf:
 	cd $(ffmpeg); \
+	make distclean; \
 	./configure $(ffmpeg-options) $(ffmpeg-shared) || exit; \
 	touch dezi.shared.conf
 	
@@ -152,7 +184,6 @@ $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
 	cd $(ffmpeg); \
 	make -j8 || exit; \
 	sudo make install; \
-	make distclean; \
 	sudo mv -f /usr/local/bin/ffmpeg   /usr/local/bin/ffmpeg-shared; \
 	sudo mv -f /usr/local/bin/ffplay   /usr/local/bin/ffplay-shared; \
 	sudo mv -f /usr/local/bin/ffprobe  /usr/local/bin/ffprobe-shared; \
@@ -172,6 +203,7 @@ ffmpeg-static = \
 	
 $(ffmpeg)/dezi.static.conf:
 	cd $(ffmpeg); \
+	make distclean; \
 	./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
 	touch dezi.static.conf
 
@@ -198,6 +230,12 @@ $(ffmpeg)/dezi.static.done: $(ffmpeg)/dezi.static.conf
 #
 # ffmpeg all
 #
+	
+ffmpeg-avpure: \
+	$(ffmpeg) \
+	$(ffmpeg)/libavfilter/vf_logo.c \
+	$(ffmpeg)/dezi.avpure.conf \
+	$(ffmpeg)/dezi.avpure.done
 	
 ffmpeg-avlibs: \
 	$(ffmpeg) \
