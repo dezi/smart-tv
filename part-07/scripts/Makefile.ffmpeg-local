@@ -196,7 +196,6 @@ $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
 #
 
 ffmpeg-static = \
-	--disable-vdpau \
 	--disable-shared \
 	--enable-static \
 	--extra-ldflags="-v" \
