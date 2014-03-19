@@ -9,7 +9,7 @@
 # und wird wie folgt bereitgestellt:
 #
 
-svn co https://xavs.svn.sourceforge.net/svnroot/xavs/trunk xavs-snv
+svn co http://xavs.svn.sourceforge.net/svnroot/xavs/trunk xavs-snv
 cd xavs-snv
 ./configure --enable-pic --disable-asm --enable-shared
 make -j6
