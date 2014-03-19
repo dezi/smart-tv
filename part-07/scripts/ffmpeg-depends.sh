@@ -111,6 +111,7 @@ libxml2-dev \
 libxtst-dev \
 libxv-dev \
 libxvidcore-dev \
+libzip-dev \
 libzmq-dev \
 libzvbi-dev \
 nettle-dev \
