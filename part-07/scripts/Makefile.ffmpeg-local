@@ -25,7 +25,7 @@ $(ffmpeg):
 
 $(ffmpeg)/libavfilter/vf_logo.c:
 	cd $(ffmpeg)/libavfilter; \
-	wget https://raw.github.com/dezi/raspi/master/filters/vf_logo.c -O vf_logo.c; \
+	wget https://raw.github.com/dezi/raspi/master/filters/vf_logo.c --no-check-certificate -O vf_logo.c; \
 	HAVE_VFLOGO=`fgrep -o "REGISTER_FILTER(LOGO" allfilters.c`; \
 	if test "x$$HAVE_VFLOGO" = "x"; then \
 		sed -i '/initialized = 1;/ a\\n\tREGISTER_FILTER(LOGO,\t\t\tlogo,\t\t\tvf);' allfilters.c; \
@@ -41,6 +41,7 @@ $(ffmpeg)/libavfilter/vf_logo.c:
 #
 
 ffmpeg-options = \
+	--disable-asm \
 	--disable-sse2 \
 	--enable-gpl \
 	--enable-nonfree \
@@ -173,11 +174,34 @@ ffmpeg-shared = \
 	--enable-libopus \
 	--enable-libquvi \
 	--enable-opengl \
-	
+
+# CFLAGS=-I/opt/local/include
+# LDFLAGS=-L/opt/local/lib
+# PKG_CONFIG_PATH=/opt/local/lib/pkgconfig
+
+ffmpeg-darwin = \
+	--extra-libs="-L../ffmpeg-static" \
+	--disable-ladspa \
+	--disable-libcaca \
+	--disable-libcdio \
+	--disable-libcelt \
+	--disable-libdc1394 \
+	--disable-libflite \
+	--disable-libiec61883 \
+	--disable-libopencv \
+	--disable-libpulse \
+	--disable-libquvi \
+	--disable-libssh \
+	--disable-libv4l2 \
+	--disable-libzvbi \
+	--disable-openal \
+	--disable-x11grab \
+	--enable-vda \
+
 $(ffmpeg)/dezi.shared.conf:
 	cd $(ffmpeg); \
 	make distclean; \
-	./configure $(ffmpeg-options) $(ffmpeg-shared) || exit; \
+	./configure $(ffmpeg-options) $(ffmpeg-shared) $(ffmpeg-darwin) || exit; \
 	touch dezi.shared.conf
 	
 $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
@@ -210,7 +234,7 @@ $(ffmpeg)/dezi.static.libs:
 	cd $(ffmpeg); \
 	make -j8 || exit; \
 	cd ..; \
-	wget https://raw.github.com/dezi/smart-tv/master/part-07/scripts/ffmpeg-analyze.php -O ffmpeg-analyze.php; \
+	wget https://raw.github.com/dezi/smart-tv/master/part-07/scripts/ffmpeg-analyze.php --no-check-certificate -O ffmpeg-analyze.php; \
 	php ffmpeg-analyze.php ffmpeg-git/ffmpeg > ffmpeg-static.log; \
 	cd $(ffmpeg); \
 	touch dezi.static.libs
