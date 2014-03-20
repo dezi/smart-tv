@@ -311,7 +311,7 @@ if (file_exists("/usr/bin/otool"))
 		exec("ln -sf $target $staticpath\n");
 	}
 	
-	$target = "/opt/local/lib/libp11-kit.a";
+	$target = "/usr/local/lib/libp11-kit.a";
 	
 	if (file_exists($target)) 
 	{
