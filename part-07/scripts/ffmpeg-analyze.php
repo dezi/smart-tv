@@ -2,7 +2,7 @@
 
 $rootmod = $argv[ 1 ];
 
-function dolib($name,$path,&$mods,$excl,$level = 1)
+function dolib($name,$path,&$mods,&$fwrk,$excl,$level = 1)
 {
 	if (isset($mods[ $name ])) return;
 	
@@ -15,10 +15,26 @@ function dolib($name,$path,&$mods,$excl,$level = 1)
 
 	$localpath = "/usr/local/lib/" . array_pop(explode("/",$path));
 
-	if (file_exists($localpath))
-		exec("ldd $localpath",$lines);
+	if (file_exists("/usr/bin/otool"))
+	{
+		$ismac = true;
+		
+		if (file_exists($localpath))
+			exec("otool -L $localpath",$lines);
+		else
+			exec("otool -L $path",$lines);
+			
+		array_shift($lines);
+	}
 	else
-		exec("ldd $path",$lines);
+	{
+		$ismac = false;
+		
+		if (file_exists($localpath))
+			exec("ldd $localpath",$lines);
+		else
+			exec("ldd $path",$lines);
+	}
 	
 	$childs = 0;
 	
@@ -27,22 +43,58 @@ function dolib($name,$path,&$mods,$excl,$level = 1)
 		$line = trim($line);
 		
 		if (substr($line,0,13) == "/lib/ld-linux") continue;
-		
-		$parts = explode(" ",$line);
-		array_pop($parts);
-		$line = implode(" ",$parts);
-		
-		if (isset($excl[ $parts[ 0 ] ])) continue;
-				
-		echo "$pad$line\n";
+		if (substr($line,0,18) == "/usr/lib/libSystem") continue;
 
-		dolib($parts[ 0 ],$parts[ 2 ],$mods,$excl,$level + 1);
+		if (substr($line,0,27) == "/System/Library/Frameworks/")
+		{
+			$fwork = explode(".",substr($line,27));
+			
+			$fwrk[ $fwork[ 0 ] ] = true;
+			
+			echo "$pad$line\n";
+			
+			continue;
+		}
+
+		if ($ismac)
+		{
+			$parts = explode(" (",$line);
+			array_pop($parts);
+			
+			$ppp = explode("/",$parts[ 0 ]);
+			$lll = array_pop($ppp);
+			
+			array_unshift($parts,"=>");
+			array_unshift($parts,$lll);
+			
+			$line = implode(" ",$parts);
+		}
+		else
+		{
+			$parts = explode(" ",$line);
+			array_pop($parts);
+			$line = implode(" ",$parts);
+		}
+		
+		if ($name == $parts[ 0 ]) continue;
+		if (isset($excl[ $parts[ 0 ] ])) continue;
+		
+		echo "$pad$line\n";
+		
+		dolib($parts[ 0 ],$parts[ 2 ],$mods,$fwrk,$excl,$level + 1);
 		
 		$childs++;
 	}
 	
-	$parts = explode(".so",$name);
-
+	if ($ismac)
+	{
+		$parts = explode(".dylib",$name);
+	}
+	else
+	{
+		$parts = explode(".so",$name);
+	}
+	
 	$lname = $parts[ 0 ];
 
 	if ($lname == "libts-0.0"         ) $lname = "libts";
@@ -51,33 +103,52 @@ function dolib($name,$path,&$mods,$excl,$level = 1)
 	if ($lname == "libdirect-1.2"     ) $lname = "libdirect";
 	if ($lname == "libdirectfb-1.2"   ) $lname = "libdirectfb";
 
-	$sname = $lname . ".a";
-
-	$mods[ $name ][ "childs" ] = $childs;
-	$mods[ $name ][ "shared" ] = $path;
-	$mods[ $name ][ "sname"  ] = $sname;
-
 	//
 	// Try to identify the matching static archives.
 	//
+	
+	$mods[ $name ][ "childs" ] = $childs;
+	$mods[ $name ][ "shared" ] = $path;
+	$mods[ $name ][ "sname"  ] = $lname . ".a";
 
-	$test = "/lib/$sname";
-	if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+	while (true)
+	{
+		$sname = $lname . ".a";
 
-	$test = "/usr/lib/$sname";
-	if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+		$test = "/lib/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
-	$test = "/lib/arm-linux-gnueabihf/$sname";
-	if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+		$test = "/usr/lib/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
-	$test = "/usr/lib/arm-linux-gnueabihf/$sname";
-	if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+		$test = "/lib/arm-linux-gnueabihf/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
-	$test = "/usr/lib/gcc/arm-linux-gnueabihf/4.8/$sname";
-	if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+		$test = "/usr/lib/arm-linux-gnueabihf/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
-	$test = "/usr/local/lib/$sname";
-	if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+		$test = "/usr/lib/gcc/arm-linux-gnueabihf/4.8/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+
+		$test = "/usr/local/lib/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+	
+		$test = "/opt/local/lib/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+		
+		if (! $ismac) break;
+		if (! strlen($lname)) break;
+		
+		if (isset($mods[ $name ][ "static" ])) 
+		{
+			$mods[ $name ][ "sname"  ] = $sname;
+
+			break;
+		}
+		
+		$lname = substr($lname,0,-1);
+	}
+	
 
 	//
 	// Special hack for pulse
@@ -89,7 +160,12 @@ function dolib($name,$path,&$mods,$excl,$level = 1)
 
 $excl = array();
 
-$excl[ "libgcc_s.so.1" ] = true;
+$excl[ "libgcc_s.so.1"     ] = true;
+$excl[ "libauto.dylib"     ] = true;
+$excl[ "libobjc.A.dylib"   ] = true;
+$excl[ "libc++abi.dylib"   ] = true;
+$excl[ "libresolv.9.dylib" ] = true;
+$excl[ "libstdc++.6.dylib" ] = true;
 
 $extrashared = "";
 $extrastatic = "";
@@ -99,19 +175,23 @@ $staticpath = "./ffmpeg-static";
 
 if (file_exists($staticpath))
 {
-	@exec("rm $staticpath/*");
+	@exec("rm -f $staticpath/*");
 }
 else
 {
 	@mkdir($staticpath);
 }
 
+$fwrk = array();
+
 while (true)
 {
 	$mods = array();
 
-	dolib("ffmpeg",$rootmod,$mods,$excl);
-
+	dolib("ffmpeg",$rootmod,$mods,$fwrk,$excl);
+	
+	var_dump($fwrk);
+	
 	if (count($mods) < 2) break;
 	
 	$thisshared = "";
@@ -190,6 +270,75 @@ while (true)
 	$extrashared = trim(trim($thisshared) . " " . $extrashared);
 	$extrastatic = trim(trim($thisstatic) . " " . $extrastatic);
 	$extraboth   = trim(trim($thisboth)   . " " . $extraboth  );
+}
+
+if (file_exists("/usr/bin/otool"))
+{
+	//
+	// Add static only libs on OSX.
+	//
+	
+	$target = "/opt/local/lib/libvpx.a";
+	
+	if (file_exists($target)) 
+	{
+		$extraboth   = "-lvpx " . $extraboth;
+		$extrastatic = "-lvpx " . $extrastatic;
+		
+		echo "ln -sf $target .\n";
+		exec("ln -sf $target $staticpath\n");
+	}
+	
+	$target = "/usr/local/lib/libgsm.a";
+	
+	if (file_exists($target)) 
+	{
+		$extraboth   = "-lgsm " . $extraboth;
+		$extrastatic = "-lgsm " . $extrastatic;
+		
+		echo "ln -sf $target .\n";
+		exec("ln -sf $target $staticpath\n");
+	}
+		
+	$target = "/opt/local/lib/libpng.a";
+	
+	if (file_exists($target)) 
+	{
+		$extraboth   = "-lpng " . $extraboth;
+		$extrastatic = "-lpng " . $extrastatic;
+		
+		echo "ln -sf $target .\n";
+		exec("ln -sf $target $staticpath\n");
+	}
+	
+	$target = "/opt/local/lib/libSDLmain.a";
+	
+	if (file_exists($target)) 
+	{
+		$extraboth   = "-lSDLmain " . $extraboth;
+		$extrastatic = "-lSDLmain " . $extrastatic;
+		
+		echo "ln -sf $target .\n";
+		exec("ln -sf $target $staticpath\n");
+	}
+	
+	$extraboth = $extraboth . " -L/opt/local/lib -lp11-kit";
+	$extraboth = $extraboth . " -lstdc++";
+	
+	//
+	// Add OSX frameworks.
+	//
+
+	foreach ($fwrk as $name => $dummy)
+	{
+		$extraboth = $extraboth . " -framework $name";
+	}
+	
+	//
+	// Suppress a linker warning.
+	//
+	
+	$extraboth = "-Wl,-no_pie " . $extraboth;
 }
 
 $extralibs = "EXTRALIBS=-L../ffmpeg-static $extraboth";
