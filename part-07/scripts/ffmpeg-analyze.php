@@ -310,7 +310,29 @@ if (file_exists("/usr/bin/otool"))
 		echo "ln -sf $target .\n";
 		exec("ln -sf $target $staticpath\n");
 	}
+		
+	$target = "/opt/local/lib/libffi.a";
 	
+	if (file_exists($target)) 
+	{
+		$extraboth   = "-lffi " . $extraboth;
+		$extrastatic = "-lffi " . $extrastatic;
+		
+		echo "ln -sf $target .\n";
+		exec("ln -sf $target $staticpath\n");
+	}
+
+	$target = "/opt/local/lib/libintl.a";
+	
+	if (file_exists($target)) 
+	{
+		$extraboth   = "-lintl " . $extraboth;
+		$extrastatic = "-lintl " . $extrastatic;
+		
+		echo "ln -sf $target .\n";
+		exec("ln -sf $target $staticpath\n");
+	}
+
 	$target = "/usr/local/lib/libp11-kit.a";
 	
 	if (file_exists($target)) 

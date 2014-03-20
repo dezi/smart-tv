@@ -232,7 +232,12 @@ $(ffmpeg)/dezi.static.conf:
 	cd $(ffmpeg); \
 	make distclean; \
 	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
-	./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-darwin) || exit; \
+	DARWIN=`uname`; \
+	if test "x$$DARWIN" = "xDarwin"; then \
+		./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-darwin) || exit; \
+	else
+		./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
+	fi; \
 	touch dezi.static.conf
 
 $(ffmpeg)/dezi.static.libs:
