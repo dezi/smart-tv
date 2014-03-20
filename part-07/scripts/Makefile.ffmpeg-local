@@ -7,6 +7,7 @@
 
 ffmpeg_version = git
 ffmpeg = ffmpeg-$(ffmpeg_version)
+uname = `uname`
 
 all: ffmpeg
 
@@ -101,6 +102,33 @@ ffmpeg-optionsfail = \
 	--enable-libx265 \
 	--enable-decklink \
 
+# export CFLAGS=-I/opt/local/include
+# export LDFLAGS="-L/opt/local/lib"
+# export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig
+
+ffmpeg-darwin = \
+	--extra-libs="-L/opt/local/lib" \
+	--extra-cflags="-I/opt/local/include" \
+	--disable-asm \
+	--disable-ladspa \
+	--disable-libaacplus \
+	--disable-libcaca \
+	--disable-libcdio \
+	--disable-libcelt \
+	--disable-libdc1394 \
+	--disable-libflite \
+	--disable-libiec61883 \
+	--disable-libopencv \
+	--disable-libpulse \
+	--disable-libquvi \
+	--disable-libssh \
+	--disable-libv4l2 \
+	--disable-libxavs \
+	--disable-libzvbi \
+	--disable-openal \
+	--disable-x11grab \
+	--enable-vda \
+
 #####################################################################
 #
 # ffmpeg shared and static pure minimal libraries only
@@ -118,7 +146,11 @@ $(ffmpeg)/dezi.avpure.conf:
 	cd $(ffmpeg); \
 	make distclean; \
 	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
-	./configure $(ffmpeg-avpure) || exit; \
+	if [ "$(uname)" == "Darwin" ]; then \
+		./configure $(ffmpeg-avpure) $(ffmpeg-darwin) || exit; \
+	else \
+		./configure $(ffmpeg-avpure) || exit; \
+	fi; \
 	touch dezi.avpure.conf
 	
 $(ffmpeg)/dezi.avpure.done: $(ffmpeg)/dezi.avpure.conf
@@ -152,7 +184,11 @@ $(ffmpeg)/dezi.avlibs.conf:
 	cd $(ffmpeg); \
 	make distclean; \
 	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
-	./configure $(ffmpeg-options) $(ffmpeg-avlibs) || exit; \
+	if [ "$(uname)" == "Darwin" ]; then \
+		./configure $(ffmpeg-options) $(ffmpeg-avlibs) $(ffmpeg-darwin) || exit; \
+	else \
+		./configure $(ffmpeg-options) $(ffmpeg-avlibs) || exit; \
+	fi; \
 	touch dezi.avlibs.conf
 	
 $(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.avlibs.conf
@@ -175,38 +211,15 @@ ffmpeg-shared = \
 	--enable-libquvi \
 	--enable-opengl \
 
-# export CFLAGS=-I/opt/local/include
-# export LDFLAGS="-L/opt/local/lib"
-# export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig
-
-ffmpeg-darwin = \
-	--extra-libs="-L/opt/local/lib" \
-	--extra-cflags="-I/opt/local/include" \
-	--disable-asm \
-	--disable-ladspa \
-	--disable-libaacplus \
-	--disable-libcaca \
-	--disable-libcdio \
-	--disable-libcelt \
-	--disable-libdc1394 \
-	--disable-libflite \
-	--disable-libiec61883 \
-	--disable-libopencv \
-	--disable-libpulse \
-	--disable-libquvi \
-	--disable-libssh \
-	--disable-libv4l2 \
-	--disable-libxavs \
-	--disable-libzvbi \
-	--disable-openal \
-	--disable-x11grab \
-	--enable-vda \
-
 $(ffmpeg)/dezi.shared.conf:
 	cd $(ffmpeg); \
 	make distclean; \
 	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
-	./configure $(ffmpeg-options) $(ffmpeg-shared) || exit; \
+	if [ "$(uname)" == "Darwin" ]; then \
+		./configure $(ffmpeg-options) $(ffmpeg-shared) $(ffmpeg-darwin) || exit; \
+	else \
+		./configure $(ffmpeg-options) $(ffmpeg-shared) || exit; \
+	fi; \
 	touch dezi.shared.conf
 	
 $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
@@ -232,10 +245,9 @@ $(ffmpeg)/dezi.static.conf:
 	cd $(ffmpeg); \
 	make distclean; \
 	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
-	DARWIN=`uname`; \
-	if test "x$$DARWIN" = "xDarwin"; then \
+	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-darwin) || exit; \
-	else
+	else \
 		./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
 	fi; \
 	touch dezi.static.conf
