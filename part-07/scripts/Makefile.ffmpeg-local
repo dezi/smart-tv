@@ -155,7 +155,7 @@ $(ffmpeg)/dezi.avpure.conf:
 	
 $(ffmpeg)/dezi.avpure.done: $(ffmpeg)/dezi.avpure.conf
 	cd $(ffmpeg); \
-	make -j8 || exit; \
+	make -j6 || exit; \
 	sudo cp libavutil/libavutil.a /usr/local/lib/libavutil_pure.a ; \
 	sudo cp libavcodec/libavcodec.a /usr/local/lib/libavcodec_pure.a; \
 	sudo cp libavdevice/libavdevice.a /usr/local/lib/libavdevice_pure.a ; \
@@ -193,7 +193,7 @@ $(ffmpeg)/dezi.avlibs.conf:
 	
 $(ffmpeg)/dezi.avlibs.done: $(ffmpeg)/dezi.avlibs.conf
 	cd $(ffmpeg); \
-	make -j8 || exit; \
+	make -j6 || exit; \
 	sudo make install-libs install-headers; \
 	touch dezi.avlibs.done
 
@@ -224,7 +224,7 @@ $(ffmpeg)/dezi.shared.conf:
 	
 $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
 	cd $(ffmpeg); \
-	make -j8 || exit; \
+	make -j6 || exit; \
 	sudo make install; \
 	sudo mv -f /usr/local/bin/ffmpeg   /usr/local/bin/ffmpeg-shared; \
 	sudo mv -f /usr/local/bin/ffplay   /usr/local/bin/ffplay-shared; \
@@ -254,7 +254,7 @@ $(ffmpeg)/dezi.static.conf:
 
 $(ffmpeg)/dezi.static.libs:
 	cd $(ffmpeg); \
-	make -j8 || exit; \
+	make -j6 || exit; \
 	cd ..; \
 	wget https://raw.github.com/dezi/smart-tv/master/part-07/scripts/ffmpeg-analyze.php --no-check-certificate -O ffmpeg-analyze.php; \
 	php ffmpeg-analyze.php ffmpeg-git/ffmpeg > ffmpeg-static.log; \
@@ -301,7 +301,7 @@ ffmpeg-static: \
 	$(ffmpeg)/dezi.static.libs \
 	$(ffmpeg)/dezi.static.done
 	
-ffmpeg:  ffmpeg-avlibs ffmpeg-shared ffmpeg-static
+ffmpeg: ffmpeg-avpure ffmpeg-avlibs ffmpeg-shared ffmpeg-static
 
 #####################################################################
 #
