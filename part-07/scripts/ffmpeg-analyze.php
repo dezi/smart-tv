@@ -311,7 +311,18 @@ if (file_exists("/usr/bin/otool"))
 		exec("ln -sf $target $staticpath\n");
 	}
 	
-	$target = "/opt/local/lib/libSDLmain.a";
+	$target = "/opt/local/lib/libp11-kit.a";
+	
+	if (file_exists($target)) 
+	{
+		$extraboth   = "-lp11-kit " . $extraboth;
+		$extrastatic = "-lp11-kit " . $extrastatic;
+		
+		echo "ln -sf $target .\n";
+		exec("ln -sf $target $staticpath\n");
+	}
+	
+	$target = "/usr/local/lib/libSDLmain.a";
 	
 	if (file_exists($target)) 
 	{
@@ -322,7 +333,6 @@ if (file_exists("/usr/bin/otool"))
 		exec("ln -sf $target $staticpath\n");
 	}
 	
-	//$extraboth = $extraboth . " -L/opt/local/lib -lp11-kit";
 	$extraboth = $extraboth . " -lstdc++";
 	
 	//
