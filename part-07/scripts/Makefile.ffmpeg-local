@@ -41,8 +41,6 @@ $(ffmpeg)/libavfilter/vf_logo.c:
 #
 
 ffmpeg-options = \
-	--disable-asm \
-	--disable-sse2 \
 	--enable-gpl \
 	--enable-nonfree \
 	--enable-version3 \
@@ -119,6 +117,7 @@ ffmpeg-avpure = \
 $(ffmpeg)/dezi.avpure.conf:
 	cd $(ffmpeg); \
 	make distclean; \
+	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
 	./configure $(ffmpeg-avpure) || exit; \
 	touch dezi.avpure.conf
 	
@@ -152,6 +151,7 @@ ffmpeg-avlibs = \
 $(ffmpeg)/dezi.avlibs.conf:
 	cd $(ffmpeg); \
 	make distclean; \
+	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
 	./configure $(ffmpeg-options) $(ffmpeg-avlibs) || exit; \
 	touch dezi.avlibs.conf
 	
@@ -175,13 +175,16 @@ ffmpeg-shared = \
 	--enable-libquvi \
 	--enable-opengl \
 
-# CFLAGS=-I/opt/local/include
-# LDFLAGS=-L/opt/local/lib
-# PKG_CONFIG_PATH=/opt/local/lib/pkgconfig
+# export CFLAGS=-I/opt/local/include
+# export LDFLAGS="-L/opt/local/lib"
+# export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig
 
 ffmpeg-darwin = \
-	--extra-libs="-L../ffmpeg-static" \
+	--extra-libs="-L/opt/local/lib" \
+	--extra-cflags="-I/opt/local/include" \
+	--disable-asm \
 	--disable-ladspa \
+	--disable-libaacplus \
 	--disable-libcaca \
 	--disable-libcdio \
 	--disable-libcelt \
@@ -193,6 +196,7 @@ ffmpeg-darwin = \
 	--disable-libquvi \
 	--disable-libssh \
 	--disable-libv4l2 \
+	--disable-libxavs \
 	--disable-libzvbi \
 	--disable-openal \
 	--disable-x11grab \
@@ -201,7 +205,8 @@ ffmpeg-darwin = \
 $(ffmpeg)/dezi.shared.conf:
 	cd $(ffmpeg); \
 	make distclean; \
-	./configure $(ffmpeg-options) $(ffmpeg-shared) $(ffmpeg-darwin) || exit; \
+	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
+	./configure $(ffmpeg-options) $(ffmpeg-shared) || exit; \
 	touch dezi.shared.conf
 	
 $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
@@ -227,7 +232,8 @@ ffmpeg-static = \
 $(ffmpeg)/dezi.static.conf:
 	cd $(ffmpeg); \
 	make distclean; \
-	./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
+	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
+	./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-darwin) || exit; \
 	touch dezi.static.conf
 
 $(ffmpeg)/dezi.static.libs:
