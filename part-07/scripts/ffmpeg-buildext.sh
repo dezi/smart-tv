@@ -281,10 +281,11 @@ cd ..
 wget http://ftp.de.debian.org/debian/pool/main/p/p11-kit/p11-kit_0.20.2.orig.tar.gz
 tar xvf p11-kit_0.20.2.orig.tar.gz
 cd p11-kit-0.20.2
-sed -i 's/as_fn_error $? "p11-kit/as_echo_n $? "p11-kit/g' configure
-./configure --enable-shared --enable-static
+sed -i 's/as_fn_error \$? "p11-kit/as_echo_n \$? "p11-kit/g' configure
+./configure --enable-shared --enable-static --without-trust-paths
 make -j6
 sudo make install
+make clean
 cd ..
 
 #

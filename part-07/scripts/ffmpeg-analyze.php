@@ -322,7 +322,7 @@ if (file_exists("/usr/bin/otool"))
 		exec("ln -sf $target $staticpath\n");
 	}
 	
-	$extraboth = $extraboth . " -L/opt/local/lib -lp11-kit";
+	//$extraboth = $extraboth . " -L/opt/local/lib -lp11-kit";
 	$extraboth = $extraboth . " -lstdc++";
 	
 	//
@@ -341,7 +341,7 @@ if (file_exists("/usr/bin/otool"))
 	$extraboth = "-Wl,-no_pie " . $extraboth;
 }
 
-$extralibs = "EXTRALIBS=-L../ffmpeg-static $extraboth";
+$extralibs = "EXTRALIBS=-v -L../ffmpeg-static $extraboth";
 
 echo "STATIC=$extrastatic\n";
 echo "SHARED=$extrashared\n";

@@ -227,7 +227,6 @@ $(ffmpeg)/dezi.shared.done: $(ffmpeg)/dezi.shared.conf
 ffmpeg-static = \
 	--disable-shared \
 	--enable-static \
-	--extra-ldflags="-v" \
 	
 $(ffmpeg)/dezi.static.conf:
 	cd $(ffmpeg); \
