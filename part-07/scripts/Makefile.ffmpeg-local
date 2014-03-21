@@ -137,6 +137,7 @@ ffmpeg-darwin = \
 ffmpeg-avpure = \
 	--enable-shared \
 	--enable-static \
+	--disable-asm \
 	--disable-vda \
 	--disable-dxva2 \
 	--disable-vaapi \
@@ -147,7 +148,7 @@ $(ffmpeg)/dezi.avpure.conf:
 	make distclean; \
 	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
 	if [ "$(uname)" == "Darwin" ]; then \
-		./configure $(ffmpeg-avpure) $(ffmpeg-darwin) || exit; \
+		./configure $(ffmpeg-avpure) || exit; \
 	else \
 		./configure $(ffmpeg-avpure) || exit; \
 	fi; \
