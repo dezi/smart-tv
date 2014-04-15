@@ -146,7 +146,7 @@ ffmpeg-avpure = \
 $(ffmpeg)/dezi.avpure.conf:
 	cd $(ffmpeg); \
 	make distclean; \
-	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
+	export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/local/lib/pkgconfig; \
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-avpure) || exit; \
 	else \
@@ -184,7 +184,7 @@ ffmpeg-avlibs = \
 $(ffmpeg)/dezi.avlibs.conf:
 	cd $(ffmpeg); \
 	make distclean; \
-	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
+	export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/local/lib/pkgconfig; \
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-avlibs) $(ffmpeg-darwin) || exit; \
 	else \
@@ -215,7 +215,7 @@ ffmpeg-shared = \
 $(ffmpeg)/dezi.shared.conf:
 	cd $(ffmpeg); \
 	make distclean; \
-	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
+	export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/local/lib/pkgconfig; \
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-shared) $(ffmpeg-darwin) || exit; \
 	else \
@@ -245,7 +245,7 @@ ffmpeg-static = \
 $(ffmpeg)/dezi.static.conf:
 	cd $(ffmpeg); \
 	make distclean; \
-	export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig; \
+	export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/local/lib/pkgconfig; \
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-darwin) || exit; \
 	else \
