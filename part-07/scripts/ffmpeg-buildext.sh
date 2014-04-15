@@ -96,6 +96,8 @@ cd libnut-git
 echo "prefix = /usr/local" | tee -a Makefile
 make -j6
 sudo make install
+sudo chmod a+x /usr/local/lib/libnut.a
+sudo chmod a+x /usr/local/lib/libnut.so
 make clean
 cd ..
 
