@@ -386,9 +386,9 @@ cd ..
 # wird wie folgt bereitgestellt:
 #
 
-wget http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.2.1.orig.tar.bz2
-tar xvf libva_1.2.1.orig.tar.bz2
-cd libva-1.2.1
+wget http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.3.0.orig.tar.bz2
+tar xvf libva_1.3.0.orig.tar.bz2
+cd libva-1.3.0
 ./configure --enable-static --enable-shared
 make -j6
 sudo make install
