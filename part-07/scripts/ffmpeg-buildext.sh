@@ -409,11 +409,10 @@ tar xvf libvdpau_0.4.1.orig.tar.gz
 cd libvdpau-0.4.1
 wget http://ftp.de.debian.org/debian/pool/main/libv/libvdpau/libvdpau_0.4.1-2.debian.tar.gz
 tar xvf libvdpau_0.4.1-2.debian.tar.gz
-patch -p1 -i debian/patches/link-with-libx11.patch
 patch -p1 -i debian/patches/autoreconf_-fi.patch
 patch -p1 -i debian/patches/debian-changes-0.4.1-2
 ./autogen.sh
-./configure --enable-static --enable-shared
+./configure --enable-static --enable-shared --disable-dri2
 make -j6
 sudo make install
 make clean
