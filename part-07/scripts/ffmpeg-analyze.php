@@ -271,7 +271,7 @@ while (true)
 		}
 		
 		if ($isstatic) 
-			$thisstatic = $thisstatic . " -l$lname";
+			$thisstatic = $thisstatic . " -l:lib$lname.a";
 		else
 			$thisshared = $thisshared . " -l$lname";
 		

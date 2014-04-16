@@ -129,6 +129,11 @@ ffmpeg-darwin = \
 	--disable-x11grab \
 	--enable-vda \
 
+ffmpeg-centos = \
+	--disable-openal \
+	--disable-x11grab \
+	--enable-vdpau \
+
 #####################################################################
 #
 # ffmpeg shared and static pure minimal libraries only
@@ -249,7 +254,7 @@ $(ffmpeg)/dezi.static.conf:
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-darwin) || exit; \
 	else \
-		./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
+		./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-centos) || exit; \
 	fi; \
 	touch dezi.static.conf
 
