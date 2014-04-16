@@ -120,7 +120,13 @@ function dolib($name,$path,&$mods,&$fwrk,$excl,$level = 1)
 		$test = "/lib/$sname";
 		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
+		$test = "/lib64/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+
 		$test = "/usr/lib/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+
+		$test = "/usr/lib64/$sname";
 		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
 		$test = "/lib/arm-linux-gnueabihf/$sname";
@@ -133,6 +139,9 @@ function dolib($name,$path,&$mods,&$fwrk,$excl,$level = 1)
 		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
 		$test = "/usr/local/lib/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+
+		$test = "/usr/local/lib64/$sname";
 		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 	
 		$test = "/opt/local/lib/$sname";
