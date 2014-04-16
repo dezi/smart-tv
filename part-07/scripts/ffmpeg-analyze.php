@@ -44,6 +44,7 @@ function dolib($name,$path,&$mods,&$fwrk,$excl,$level = 1)
 		
 		if (substr($line,0,13) == "/lib/ld-linux") continue;
 		if (substr($line,0,15) == "/lib64/ld-linux") continue;
+		if (substr($line,0,15) == "linux-vdso.so.1") continue;
 		if (substr($line,0,18) == "/usr/lib/libSystem") continue;
 
 		if (substr($line,0,27) == "/System/Library/Frameworks/")
