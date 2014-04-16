@@ -271,11 +271,15 @@ while (true)
 		}
 		
 		if ($isstatic) 
+		{
 			$thisstatic = $thisstatic . " -l:lib$lname.a";
+			$thisboth   = $thisboth   . " -l:lib$lname.a";
+		}
 		else
+		{
 			$thisshared = $thisshared . " -l$lname";
-		
-		$thisboth = $thisboth . " -l$lname";
+			$thisboth   = $thisboth   . " -l$lname";
+		}
 	}
 	
 	$extrashared = trim(trim($thisshared) . " " . $extrashared);
