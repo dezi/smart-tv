@@ -8,6 +8,7 @@
 ffmpeg_version = git
 ffmpeg = ffmpeg-$(ffmpeg_version)
 uname = `uname`
+centos = `grep CentOS /etc/issue`
 
 all: ffmpeg
 
@@ -130,8 +131,19 @@ ffmpeg-darwin = \
 	--enable-vda \
 
 ffmpeg-centos = \
+	--disable-libpulse \
+	--disable-gnutls \
+	--disable-libcaca \
+	--disable-libflite \
+	--disable-libxvid \
+	--disable-libssh \
+	--disable-librtmp \
 	--disable-openal \
+	--disable-opencl \
+	--disable-openssl \
 	--disable-x11grab \
+	--disable-indevs \
+	--disable-outdevs \
 	--enable-vdpau \
 
 #####################################################################
@@ -254,7 +266,11 @@ $(ffmpeg)/dezi.static.conf:
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-darwin) || exit; \
 	else \
-		./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-centos) || exit; \
+		if [ "x$(centos)" != "x" ]; then \
+			./configure $(ffmpeg-options) $(ffmpeg-static) $(ffmpeg-centos) || exit; \
+		else \
+			./configure $(ffmpeg-options) $(ffmpeg-static) || exit; \
+		fi; \
 	fi; \
 	touch dezi.static.conf
 
