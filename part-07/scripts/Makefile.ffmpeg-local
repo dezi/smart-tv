@@ -59,7 +59,6 @@ ffmpeg-options = \
 	--enable-libdc1394 \
 	--enable-libfaac \
 	--enable-libfdk-aac \
-	--enable-libflite \
 	--enable-libfreetype \
 	--enable-libgme \
 	--enable-libgsm \
@@ -91,7 +90,6 @@ ffmpeg-options = \
 	--enable-libwebp \
 	--enable-libx264 \
 	--enable-libxavs \
-	--enable-libxvid \
 	--enable-libzvbi \
 	--enable-openal \
 	--enable-opencl \
@@ -99,6 +97,8 @@ ffmpeg-options = \
 	--enable-x11grab \
 
 ffmpeg-optionsfail = \
+	--enable-libxvid \
+	--enable-libflite \
 	--enable-libstagefright-h264 \
 	--enable-libx265 \
 	--enable-decklink \
@@ -154,7 +154,6 @@ ffmpeg-centos = \
 ffmpeg-avpure = \
 	--enable-shared \
 	--enable-static \
-	--disable-asm \
 	--disable-vda \
 	--disable-dxva2 \
 	--disable-vaapi \
