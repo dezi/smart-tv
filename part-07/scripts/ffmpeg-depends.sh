@@ -83,7 +83,6 @@ libsoxr-dev \
 libspeex-dev \
 libspeexdsp-dev \
 libssh-dev \
-libtasn1-6-dev \
 libtheora-dev \
 libtinfo-dev \
 libts-dev \
