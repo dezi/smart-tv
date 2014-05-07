@@ -122,11 +122,14 @@ ffmpeg-darwin = \
 	--disable-libopencv \
 	--disable-libpulse \
 	--disable-libquvi \
+	--disable-librtmp \
+	--disable-libutvideo \
 	--disable-libssh \
 	--disable-libv4l2 \
 	--disable-libxavs \
 	--disable-libzvbi \
 	--disable-openal \
+	--disable-opencl \
 	--disable-x11grab \
 	--enable-vda \
 
