@@ -272,8 +272,16 @@ while (true)
 		
 		if ($isstatic) 
 		{
-			$thisstatic = $thisstatic . " -l:lib$lname.a";
-			$thisboth   = $thisboth   . " -l:lib$lname.a";
+			if (file_exists("/usr/bin/otool"))
+			{
+				$thisstatic = $thisstatic . " -l$lname";
+				$thisboth   = $thisboth   . " -l$lname";
+			}
+			else
+			{
+				$thisstatic = $thisstatic . " -l:lib$lname.a";
+				$thisboth   = $thisboth   . " -l:lib$lname.a";
+			}
 		}
 		else
 		{
