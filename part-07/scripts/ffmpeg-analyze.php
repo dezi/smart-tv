@@ -138,6 +138,9 @@ function dolib($name,$path,&$mods,&$fwrk,$excl,$level = 1)
 		$test = "/usr/lib/gcc/arm-linux-gnueabihf/4.8/$sname";
 		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 
+		$test = "/usr/lib/gcc/x86_64-redhat-linux/4.4.4/$sname";
+		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
+
 		$test = "/usr/local/lib/$sname";
 		if (file_exists($test)) $mods[ $name ][ "static" ] = $test;
 

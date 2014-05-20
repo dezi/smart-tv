@@ -137,12 +137,14 @@ ffmpeg-centos = \
 	--disable-libpulse \
 	--disable-gnutls \
 	--disable-libcaca \
+	--disable-libdc1394 \
 	--disable-libflite \
 	--disable-libxvid \
 	--disable-libssh \
 	--disable-librtmp \
 	--disable-openal \
 	--disable-opencl \
+	--disable-opengl \
 	--disable-openssl \
 	--disable-x11grab \
 	--disable-indevs \
@@ -207,7 +209,11 @@ $(ffmpeg)/dezi.avlibs.conf:
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-avlibs) $(ffmpeg-darwin) || exit; \
 	else \
-		./configure $(ffmpeg-options) $(ffmpeg-avlibs) || exit; \
+		if [ "x$(centos)" != "x" ]; then \
+			./configure $(ffmpeg-options) $(ffmpeg-avlibs) $(ffmpeg-centos) || exit; \
+		else \
+			./configure $(ffmpeg-options) $(ffmpeg-avlibs) || exit; \
+		fi; \
 	fi; \
 	touch dezi.avlibs.conf
 	
@@ -238,7 +244,11 @@ $(ffmpeg)/dezi.shared.conf:
 	if [ "$(uname)" == "Darwin" ]; then \
 		./configure $(ffmpeg-options) $(ffmpeg-shared) $(ffmpeg-darwin) || exit; \
 	else \
-		./configure $(ffmpeg-options) $(ffmpeg-shared) || exit; \
+		if [ "x$(centos)" != "x" ]; then \
+			./configure $(ffmpeg-options) $(ffmpeg-shared) $(ffmpeg-centos) || exit; \
+		else \
+			./configure $(ffmpeg-options) $(ffmpeg-shared) || exit; \
+		fi; \
 	fi; \
 	touch dezi.shared.conf
 	
