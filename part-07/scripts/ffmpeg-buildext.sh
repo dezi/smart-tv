@@ -127,6 +127,14 @@ git clone https://github.com/savonet/shine.git shine-git
 cd shine-git
 ./bootstrap
 ./configure
+sed -i 's/slen1_tab/slen1_table/g' src/lib/tables.h
+sed -i 's/slen1_tab/slen1_table/g' src/lib/tables.c
+sed -i 's/slen1_tab/slen1_table/g' src/lib/l3loop.c
+sed -i 's/slen1_tab/slen1_table/g' src/lib/l3bitstream.c
+sed -i 's/slen2_tab/slen2_table/g' src/lib/tables.h
+sed -i 's/slen2_tab/slen2_table/g' src/lib/tables.c
+sed -i 's/slen2_tab/slen2_table/g' src/lib/l3loop.c
+sed -i 's/slen2_tab/slen2_table/g' src/lib/l3bitstream.c
 make -j6
 sudo make install
 make clean
@@ -140,9 +148,9 @@ cd ..
 # bereitgestellt:
 #
 
-wget http://ftp.de.debian.org/debian/pool/main/e/enca/enca_1.15.orig.tar.gz
-tar xvf enca_1.15.orig.tar.gz
-cd enca-1.15
+wget http://ftp.de.debian.org/debian/pool/main/e/enca/enca_1.16.orig.tar.xz
+tar xvf enca_1.16.orig.tar.xz
+cd enca-1.16
 sed -i 's/ln -s/ln -sf/g' configure
 ./configure --enable-shared --enable-static
 make -j6
@@ -241,9 +249,9 @@ cd ..
 # wie folgt bereitgestellt:
 #
 
-wget http://ftp.de.debian.org/debian/pool/main/a/alsa-lib/alsa-lib_1.0.27.2.orig.tar.bz2
-tar xvf alsa-lib_1.0.27.2.orig.tar.bz2
-cd alsa-lib-1.0.27.2
+wget http://ftp.de.debian.org/debian/pool/main/a/alsa-lib/alsa-lib_1.0.28.orig.tar.bz2
+tar xvf alsa-lib_1.0.28.orig.tar.bz2
+cd alsa-lib-1.0.28
 ./configure --enable-static --disable-shared --prefix=/usr/local --with-pic
 make -j6
 sudo make install
@@ -280,9 +288,9 @@ cd ..
 # wird wie folgt bereitgestellt:
 #
 
-wget http://ftp.de.debian.org/debian/pool/main/p/p11-kit/p11-kit_0.20.2.orig.tar.gz
-tar xvf p11-kit_0.20.2.orig.tar.gz
-cd p11-kit-0.20.2
+wget http://ftp.de.debian.org/debian/pool/main/p/p11-kit/p11-kit_0.20.7.orig.tar.gz
+tar xvf p11-kit_0.20.7.orig.tar.gz
+cd p11-kit-0.20.7
 sed -i 's/as_fn_error \$? "p11-kit/as_echo_n \$? "p11-kit/g' configure
 ./configure --enable-shared --enable-static --without-trust-paths
 make -j6
@@ -331,9 +339,9 @@ cd ..
 # wird wie folgt bereitgestellt:
 #
 
-wget http://ftp.de.debian.org/debian/pool/main/o/ocl-icd/ocl-icd_2.1.3.orig.tar.gz
-tar xvf ocl-icd_2.1.3.orig.tar.gz
-cd ocl-icd-2.1.3
+wget http://ftp.de.debian.org/debian/pool/main/o/ocl-icd/ocl-icd_2.2.3.orig.tar.gz
+tar xvf ocl-icd_2.2.3.orig.tar.gz
+cd ocl-icd-2.2.3
 ./configure --enable-static
 make -j6
 sudo make install
@@ -388,9 +396,9 @@ cd ..
 # wird wie folgt bereitgestellt:
 #
 
-wget http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.3.0.orig.tar.bz2
-tar xvf libva_1.3.0.orig.tar.bz2
-cd libva-1.3.0
+wget http://ftp.de.debian.org/debian/pool/main/libv/libva/libva_1.5.0.orig.tar.bz2
+tar xvf libva_1.5.0.orig.tar.bz2
+cd libva-1.5.0
 ./configure --enable-static --enable-shared
 make -j6
 sudo make install
