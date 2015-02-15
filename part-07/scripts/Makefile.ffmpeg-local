@@ -1,4 +1,4 @@
-#####################################################################
+####################################################################
 #
 # Build ffmpeg from web.
 #
@@ -89,6 +89,7 @@ ffmpeg-options = \
 	--enable-libwavpack \
 	--enable-libwebp \
 	--enable-libx264 \
+	--enable-libx265 \
 	--enable-libxavs \
 	--enable-libzvbi \
 	--enable-openal \
@@ -100,7 +101,6 @@ ffmpeg-optionsfail = \
 	--enable-libxvid \
 	--enable-libflite \
 	--enable-libstagefright-h264 \
-	--enable-libx265 \
 	--enable-decklink \
 
 # export CFLAGS=-I/opt/local/include
