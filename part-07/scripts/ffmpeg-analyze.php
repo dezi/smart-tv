@@ -270,7 +270,7 @@ while (true)
 			echo "ln -sf $target .\n";
 			if (file_exists($staticpath)) exec("ln -sf $target $staticpath\n");
 
-			$lname = "ncursesw.a -l:gpm";
+			$lname = "ncursesw.a -l:libgpm";
 		}
 		
 		if ($isstatic) 
